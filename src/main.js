@@ -9,4 +9,4 @@ import './permission'
 
 const app = createApp(App)
 installElementPlus(app)
-app.use(store).use(router).mount('#app')
+app.use(router).use(store).mount('#app')

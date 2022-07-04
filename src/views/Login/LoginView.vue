@@ -75,7 +75,7 @@ const clickLogin = () => {
       .dispatch('users/login', loginForm.value)
       .then(() => {
         isLoading.value = false
-        // 登录后操作
+        // 登录后操作，还会经过路由守卫进而去获取菜单权限列表
         router.push('/')
       })
       .catch(() => {
@@ -103,6 +103,14 @@ const clickLogin = () => {
       width: 400px;
       background: white;
       padding: 30px;
+    }
+  }
+}
+// 去除浏览器自动填入密码后的样式
+::v-deep {
+  .el-input {
+    input:-webkit-autofill {
+      box-shadow: 0 0 0px 1000px white inset;
     }
   }
 }

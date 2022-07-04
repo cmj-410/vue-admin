@@ -10,3 +10,14 @@ export const apiLogin = data => {
     data
   })
 }
+
+/**
+ * 获取用户信息
+ */
+export const apiUsersProfile = userId => {
+  return request({
+    url: 'users/profile',
+    method: 'GET',
+    userId
+  })
+}

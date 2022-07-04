@@ -1,8 +1,8 @@
-import { apiLogin } from '@/api/users'
+import { apiLogin, apiUsersProfile } from '@/api/users'
 import md5 from 'md5'
-import { setItem, getItem } from '@/utils/storage'
+import { setItem, getItem, removeAllItem } from '@/utils/storage'
 import { TOKEN } from '@/constants'
-// import router, { resetRouter } from '@/router'
+import router, { resetRouter } from '@/router'
 import { setTimeStamp } from '@/utils/tokenTime'
 
 export default {
@@ -39,18 +39,18 @@ export default {
             reject(err)
           })
       })
+    },
+    async getUserInfo(context) {
+      const res = await apiUsersProfile()
+      this.commit('users/setUserInfo', res)
+      return res
+    },
+    logout() {
+      resetRouter()
+      this.commit('users/setToken', '')
+      this.commit('users/setUserInfo', {})
+      removeAllItem()
+      router.push('/login')
     }
-    // async getUserInfo(context) {
-    //   const res = await getUserInfo()
-    //   this.commit('user/setUserInfo', res)
-    //   return res
-    // },
-    // logout() {
-    //   resetRouter()
-    //   this.commit('user/setToken', '')
-    //   this.commit('user/setUserInfo', {})
-    //   removeAllItem()
-    //   router.push('/login')
-    // }
   }
 }
