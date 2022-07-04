@@ -107,11 +107,9 @@ const clickLogin = () => {
   }
 }
 // 去除浏览器自动填入密码后的样式
-::v-deep {
-  .el-input {
-    input:-webkit-autofill {
-      box-shadow: 0 0 0px 1000px white inset;
-    }
+:v-deep(.el-input) {
+  input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px white inset;
   }
 }
 </style>

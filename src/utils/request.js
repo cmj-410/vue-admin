@@ -16,7 +16,7 @@ service.interceptors.request.use(
     if (store.getters.token) {
       if (isCheckTimeout()) {
         // 登出操作
-        store.dispatch('user/logout')
+        store.dispatch('users/logout')
         return Promise.reject(new Error('token 失效'))
       }
       // 如果token存在 注入token
@@ -46,7 +46,7 @@ service.interceptors.response.use(
     // 处理 token 超时问题
     if (error.response?.data?.code === stateCode.AUTH_ERROR) {
       // token超时
-      store.dispatch('user/logout')
+      store.dispatch('users/logout')
     }
     ElMessage.error(error.message) // 提示错误信息
     return Promise.reject(error)
