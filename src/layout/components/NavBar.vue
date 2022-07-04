@@ -3,7 +3,9 @@
     <div class="hamburgerStyle">
       <Hamburger />
     </div>
-    <Breadcrumb />
+    <div class="breadcrumbStyle">
+      <Breadcrumb />
+    </div>
     <div class="rightItem">
       <LayoutDropdown />
     </div>
@@ -22,7 +24,11 @@ import Hamburger from '@/components/Hamburger'
   position: relative;
   height: #{$topHeight};
   .hamburgerStyle {
-    display: inline-block;
+    float: left;
+    width: #{$topHeight};
+  }
+  .breadcrumbStyle {
+    float: left;
   }
   .el-header {
     box-sizing: border-box;

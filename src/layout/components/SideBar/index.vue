@@ -4,7 +4,7 @@
     <template v-else>LOGO</template>
   </div>
   <el-menu
-    default-active="$store.getters.activeMenuIndex"
+    default-active="/home"
     :uniqueOpened="true"
     style="border: none"
     background-color="lightgray"

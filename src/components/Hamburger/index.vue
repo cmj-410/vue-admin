@@ -20,12 +20,9 @@ const changeCollapse = () => {
 @import '~@/styles/variables.scss';
 .hamburger-container {
   width: #{$topHeight};
-  position: relative;
-  i {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+  height: #{$topHeight};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

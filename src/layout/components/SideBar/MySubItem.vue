@@ -18,7 +18,14 @@
   </template>
   <template v-else>
     <router-link :to="item.path">
-      <el-menu-item :index="item.path">{{ item.meta.title }}</el-menu-item>
+      <el-menu-item :index="item.path">
+        <template #title>
+          <span>{{ item.meta.title }}</span>
+        </template>
+        <el-icon v-if="item.meta.icon">
+          <component :is="item.meta.icon" />
+        </el-icon>
+      </el-menu-item>
     </router-link>
   </template>
 </template>

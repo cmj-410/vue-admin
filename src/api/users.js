@@ -18,6 +18,17 @@ export const apiUsersProfile = userId => {
   return request({
     url: 'users/profile',
     method: 'GET',
-    userId
+    params: { userId }
+  })
+}
+
+/**
+ * 获取用户列表
+ */
+export const apiUsersList = config => {
+  return request({
+    url: 'users/List',
+    method: 'GET',
+    data: config
   })
 }
