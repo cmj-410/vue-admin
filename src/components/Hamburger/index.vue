@@ -1,6 +1,6 @@
 <template>
-  <div class="hamburger-container">
-    <el-icon :size="30" @click="changeCollapse">
+  <div class="hamburger-container" @click="changeCollapse">
+    <el-icon :size="30">
       <Fold v-if="!$store.getters.sidebarOpened" />
       <Expand v-else />
     </el-icon>
@@ -24,5 +24,8 @@ const changeCollapse = () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background: #eee;
+  }
 }
 </style>

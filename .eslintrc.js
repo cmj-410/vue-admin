@@ -1,8 +1,8 @@
 module.exports = {
   root: true,
-  env: {
-    node: true
-  },
+  // env: {
+  //   'vue/setup-compiler-macros': true
+  // },
   extends: [
     'plugin:vue/vue3-essential',
     '@vue/standard'

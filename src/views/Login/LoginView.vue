@@ -98,18 +98,20 @@ const clickLogin = () => {
     transform: translate(-50%, -50%);
     h2 {
       text-align: center;
+      margin-bottom: 5vh;
     }
     .login-form {
       width: 400px;
       background: white;
       padding: 30px;
+      // 去除浏览器自动填入密码后的样式
+      ::v-deep {
+        input:-webkit-autofill {
+          box-shadow: 0 0 0px 1000px white inset;
+          -webkit-box-shadow: 0 0 0px 1000px white inset;
+        }
+      }
     }
-  }
-}
-// 去除浏览器自动填入密码后的样式
-:v-deep(.el-input) {
-  input:-webkit-autofill {
-    box-shadow: 0 0 0px 1000px white inset;
   }
 }
 </style>

@@ -35,6 +35,7 @@ service.interceptors.response.use(
     const { code, msg, data } = response.data
     //   根据响应成功与否决定下面的操作
     if (code === 200) {
+      ElMessage.success(msg)
       return data
     } else {
       // 业务错误

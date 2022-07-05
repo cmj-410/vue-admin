@@ -4,11 +4,12 @@
     <template v-else>LOGO</template>
   </div>
   <el-menu
-    default-active="/home"
+    :default-active="curRoute"
     :uniqueOpened="true"
     style="border: none"
-    background-color="lightgray"
-    active-text-color="yellow"
+    background-color="gray"
+    text-color="white"
+    active-text-color="skyblue"
     :collapse="$store.getters.sidebarOpened"
     :collapse-transition="false"
   >
@@ -18,7 +19,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { filterRouters, generateMenus } from '@/utils/generateMenu'
 import MySubItem from './MySubItem.vue'
 
@@ -30,6 +31,9 @@ const routes = computed(() => {
 })
 console.log('生成的菜单列表')
 console.log(routes.value)
+
+const route = useRoute()
+const curRoute = computed(() => route.path)
 </script>
 
 <style lang="scss" scoped>

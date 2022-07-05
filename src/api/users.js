@@ -14,21 +14,46 @@ export const apiLogin = data => {
 /**
  * 获取用户信息
  */
-export const apiUsersProfile = userId => {
+export const apiUsersProfile = params => {
   return request({
     url: 'users/profile',
     method: 'GET',
-    params: { userId }
+    params
   })
 }
 
 /**
  * 获取用户列表
  */
-export const apiUsersList = config => {
+export const apiUsersList = params => {
   return request({
     url: 'users/List',
     method: 'GET',
-    data: config
+    params
+  })
+}
+
+/**
+ * 编辑用户信息
+ */
+export const apiEditUser = data => {
+  return request({
+    url: 'users/operate',
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ * 新增用户信息
+ */
+export const apiAddUser = data => {
+  return request({
+    url: 'users/operate',
+    method: 'POST',
+    data: {
+      ...data,
+      action: 'add'
+    }
   })
 }
