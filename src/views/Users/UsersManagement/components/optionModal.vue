@@ -9,7 +9,12 @@
       <div class="dialogHeader">{{ modalTitle }}</div>
     </template>
 
-    <el-form :model="editForm" label-width="80px">
+    <el-form
+      :model="editForm"
+      label-width="80px"
+      :rules="formRules"
+      ref="editFormRef"
+    >
       <el-form-item label="用户名" prop="userName">
         <el-input v-model="editForm.userName" placeholder="请输入" />
       </el-form-item>
@@ -25,8 +30,10 @@
     </el-form>
 
     <template #footer>
-      <el-button type="primary" @click="submitEdit">确认</el-button>
-      <el-button @click="cancelEdit">取消</el-button>
+      <div class="footerWrapper">
+        <el-button type="primary" @click="submitEdit">确认</el-button>
+        <el-button @click="cancelEdit">取消</el-button>
+      </div>
     </template>
   </el-dialog>
 </template>
@@ -35,6 +42,7 @@
 import { ref, defineProps, defineEmits } from 'vue'
 import { apiUsersProfile, apiEditUser, apiAddUser } from '@/api/users'
 import { ElMessage } from 'element-plus'
+import formRules from './rules'
 
 const props = defineProps({
   modelValue: {
@@ -52,6 +60,7 @@ const emits = defineEmits(['update:modelValue', 'success'])
 
 const modalTitle = ref()
 const editForm = ref({})
+const editFormRef = ref({})
 
 const initDialog = async () => {
   // 如果存在用户id（默认不为0），即为编辑状态
@@ -69,14 +78,18 @@ const clearData = () => {
   editForm.value = {}
 }
 
-const submitEdit = async () => {
-  if (props.isEdit) {
-    await apiEditUser(editForm.value)
-  } else {
-    await apiAddUser(editForm.value)
-  }
-  emits('success')
-  clearData()
+const submitEdit = () => {
+  editFormRef.value.validate(async (valide) => {
+    if (valide) {
+      if (props.isEdit) {
+        await apiEditUser(editForm.value)
+      } else {
+        await apiAddUser(editForm.value)
+      }
+      emits('success')
+      clearData()
+    }
+  })
 }
 
 const cancelEdit = () => {
@@ -88,5 +101,9 @@ const cancelEdit = () => {
 .dialogHeader {
   font: 25px;
   text-align: center;
+}
+.footerWrapper {
+  display: flex;
+  justify-content: center;
 }
 </style>
