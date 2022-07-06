@@ -10,13 +10,6 @@
     </template>
 
     <el-form :model="editForm" label-width="80px">
-      <el-form-item label="用户id" prop="userId">
-        <el-input
-          v-model="editForm.userId"
-          placeholder="请输入"
-          :disabled="!isNaN(userId)"
-        />
-      </el-form-item>
       <el-form-item label="用户名" prop="userName">
         <el-input v-model="editForm.userName" placeholder="请输入" />
       </el-form-item>
@@ -40,7 +33,7 @@
 
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue'
-import { apiUsersProfile, apiEditUser } from '@/api/users'
+import { apiUsersProfile, apiEditUser, apiAddUser } from '@/api/users'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps({
@@ -48,18 +41,21 @@ const props = defineProps({
     type: Boolean,
     required: true
   },
+  isEdit: {
+    type: Boolean
+  },
   userId: {
     type: Number
   }
 })
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'success'])
 
 const modalTitle = ref()
 const editForm = ref({})
 
 const initDialog = async () => {
   // 如果存在用户id（默认不为0），即为编辑状态
-  if (props.userId) {
+  if (props.isEdit) {
     modalTitle.value = '编辑用户'
     const userProfile = await apiUsersProfile({ userId: props.userId })
     editForm.value = userProfile
@@ -74,7 +70,11 @@ const clearData = () => {
 }
 
 const submitEdit = async () => {
-  await apiEditUser(editForm.value)
+  if (props.isEdit) {
+    await apiEditUser(editForm.value)
+  } else {
+    await apiAddUser(editForm.value)
+  }
   emits('success')
   clearData()
 }

@@ -2,11 +2,18 @@
   <div class="wrapper">
     <div class="container">
       <el-card class="marginbottom">
-        <slot name="queryHeader" />
+        <el-scrollbar height="50px">
+          <slot name="queryHeader" />
+        </el-scrollbar>
       </el-card>
+      <div class="optionBtn">
+        <slot name="optionBtn" />
+      </div>
       <div class="tableCard">
         <el-card shadow="never" class="marginbottom">
-          <slot name="tablePart" />
+          <el-scrollbar height="338px">
+            <slot name="tablePart" />
+          </el-scrollbar>
         </el-card>
       </div>
     </div>
@@ -25,14 +32,14 @@
   overflow-y: auto;
   .container {
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    // .tableCard {
-    //   height: 65vh;
-    //   overflow: auto;
-    // }
     .marginbottom {
       margin-bottom: 20px;
+    }
+    .tableCard {
+      .optionBtn {
+        height: 42px;
+        margin-bottom: 10px;
+      }
     }
   }
   .footerStyle {

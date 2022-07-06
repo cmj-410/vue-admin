@@ -57,3 +57,14 @@ export const apiAddUser = data => {
     }
   })
 }
+
+/**
+ * 删除用户
+ */
+export const apiDeleteUser = data => {
+  return request({
+    url: 'users/delete',
+    method: 'POST',
+    data
+  })
+}

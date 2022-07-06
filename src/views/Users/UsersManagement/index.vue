@@ -3,12 +3,17 @@
     <template #queryHeader>
       <el-form :inline="true" :model="queryFormParams">
         <el-form-item label="用户id：">
-          <el-input v-model="queryFormParams.userId" placeholder="输入用户id" />
+          <el-input
+            v-model="queryFormParams.userId"
+            placeholder="输入用户id"
+            clearable
+          />
         </el-form-item>
         <el-form-item label="用户名：">
           <el-input
             v-model="queryFormParams.userName"
             placeholder="输入用户名"
+            clearable
           />
         </el-form-item>
         <el-form-item label="用户状态：">
@@ -26,10 +31,20 @@
                 onSubmit()
               }
             "
+            :loading="isloading"
             >查询</el-button
           >
         </el-form-item>
       </el-form>
+    </template>
+
+    <template #optionBtn>
+      <el-button
+        type="primary"
+        style="margin-bottom: 10px"
+        @click="addUserClick"
+        >新增用户</el-button
+      >
     </template>
 
     <template #tablePart>
@@ -52,12 +67,25 @@
             {{ scope.row.lastLoginTime.split('T')[0] }}
           </template>
         </el-table-column>
-        <el-table-column>
+        <el-table-column label="操作">
           <template #default="scope">
             <el-button link type="primary" @click.prevent="editUser(scope.row)">
-              <el-icon><edit /></el-icon>
-              <span style="margin-left: 3px">编辑用户</span>
+              <el-icon><Edit /></el-icon>
+              <span style="margin-left: 3px">编辑</span>
             </el-button>
+            <el-popconfirm
+              confirm-button-text="确定"
+              cancel-button-text="取消"
+              title="确认删除该用户么?"
+              @confirm="deleteUser(scope.row)"
+            >
+              <template #reference>
+                <el-button link type="primary">
+                  <el-icon><Delete /></el-icon>
+                  <span style="margin-left: 3px">删除</span>
+                </el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -78,13 +106,14 @@
   <OptionModal
     v-model="isVisible"
     :userId="EditUserId"
+    :isEdit="isEdit"
     @success="getTableData"
   ></OptionModal>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { apiUsersList } from '@/api/users'
+import { apiUsersList, apiDeleteUser } from '@/api/users'
 import BaseTabelLayout from '@/components/BaseTabelLayout'
 import OptionModal from './components/optionModal.vue'
 
@@ -96,15 +125,17 @@ const queryFormParams = ref({
   pageSize: 10
 })
 
+const isloading = ref(false)
 const tableData = ref([])
 const totalRows = ref(0)
 const isVisible = ref(false)
 const EditUserId = ref()
+const isEdit = ref(false)
 
 const getTableData = async () => {
   const res = await apiUsersList(queryFormParams.value)
+  isloading.value = false
   tableData.value = [...res.list]
-  // tableData.value = [...res.list, ...res.list, ...res.list]
   totalRows.value = res.page.total
   return res
 }
@@ -112,11 +143,22 @@ const getTableData = async () => {
 getTableData()
 // 点击查询用户列表
 const onSubmit = () => {
+  isloading.value = true
   getTableData()
 }
 const editUser = async (profileData) => {
+  isEdit.value = true
   isVisible.value = true
   EditUserId.value = profileData.userId
+}
+
+const deleteUser = async ({ userId }) => {
+  await apiDeleteUser({ userId })
+  getTableData()
+}
+const addUserClick = () => {
+  isEdit.value = false
+  isVisible.value = true
 }
 
 const pageSizeChange = (value) => {
@@ -130,4 +172,12 @@ const pageChange = (value) => {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+::v-deep {
+  .el-table {
+    .cell {
+      text-align: center;
+    }
+  }
+}
+</style>
