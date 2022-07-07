@@ -1,12 +1,13 @@
 <template>
   <div class="wrapper">
-    <div class="hamburgerStyle">
+    <div class="floatLeft">
       <Hamburger />
     </div>
-    <div class="breadcrumbStyle">
+    <div class="floatLeft">
       <Breadcrumb />
     </div>
-    <div class="rightItem">
+    <div class="rightItem flexRow">
+      <ThemeTangle />
       <LayoutDropdown />
     </div>
   </div>
@@ -16,18 +17,15 @@
 import LayoutDropdown from '@/components/LayoutDropdown'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import ThemeTangle from '@/components/ThemeTangle'
 </script>
 
 <style lang="scss" scoped>
 @import '~@/styles/variables.scss';
 .wrapper {
-  position: relative;
-  height: #{$topHeight};
-  .hamburgerStyle {
-    float: left;
-    width: #{$topHeight};
-  }
-  .breadcrumbStyle {
+  // height: #{$topHeight};
+  overflow: hidden;
+  .floatLeft {
     float: left;
   }
   .el-header {
@@ -36,9 +34,11 @@ import Hamburger from '@/components/Hamburger'
     line-height: 50px;
   }
   .rightItem {
-    position: absolute;
-    right: 20px;
-    top: 20px;
+    float: right;
+    margin-right: 20px;
+  }
+  .flexRow {
+    display: flex;
   }
 }
 </style>

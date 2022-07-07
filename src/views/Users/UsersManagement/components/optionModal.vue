@@ -16,10 +16,18 @@
       ref="editFormRef"
     >
       <el-form-item label="用户名" prop="userName">
-        <el-input v-model="editForm.userName" placeholder="请输入" />
+        <el-input
+          v-model="editForm.userName"
+          placeholder="请输入"
+          maxlength="10"
+        />
       </el-form-item>
       <el-form-item label="手机" prop="mobile">
-        <el-input v-model="editForm.mobile" placeholder="请输入" />
+        <el-input
+          v-model="editForm.mobile"
+          placeholder="请输入"
+          maxlength="11"
+        />
       </el-form-item>
       <el-form-item label="状态" prop="state">
         <el-select v-model="editForm.state" placeholder="请选择">

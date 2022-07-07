@@ -17,15 +17,9 @@ const changeCollapse = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/variables.scss';
+@import '~@/styles/mixin/index.scss';
 .hamburger-container {
-  width: #{$topHeight};
-  height: #{$topHeight};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    background: #eee;
-  }
+  @include navBarComponentStyle;
+  @include hoverStyle;
 }
 </style>

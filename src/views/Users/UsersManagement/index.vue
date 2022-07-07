@@ -6,6 +6,7 @@
           <el-input
             v-model="queryFormParams.userId"
             placeholder="输入用户id"
+            maxlength="10"
             clearable
           />
         </el-form-item>
@@ -13,11 +14,16 @@
           <el-input
             v-model="queryFormParams.userName"
             placeholder="输入用户名"
+            maxlength="10"
             clearable
           />
         </el-form-item>
         <el-form-item label="用户状态：">
-          <el-select v-model="queryFormParams.state" placeholder="选择状态">
+          <el-select
+            v-model="queryFormParams.state"
+            placeholder="选择状态"
+            clearable
+          >
             <el-option label="正常" :value="1" />
             <el-option label="停用" :value="0" />
           </el-select>
@@ -132,6 +138,7 @@ const isVisible = ref(false)
 const EditUserId = ref()
 const isEdit = ref(false)
 
+// 查询用户信息列表
 const getTableData = async () => {
   const res = await apiUsersList(queryFormParams.value)
   isloading.value = false

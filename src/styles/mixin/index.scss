@@ -1,3 +1,16 @@
-.tableCellCenter{
-  
+@import '~@/styles/variables.scss';
+
+@mixin navBarComponentStyle {
+  width: #{$topHeight};
+  height: #{$topHeight};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+@mixin hoverStyle {
+  &:hover {
+    background: #eee;
+  }
 }
+
