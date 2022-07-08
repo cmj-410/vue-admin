@@ -1,0 +1,9 @@
+$topHeight: 50px;
+$sideBarOpened: 200px;
+$sideBarClosed: 64px;
+
+:export{
+  topHeight: $topHeight;
+  sideBarOpened: $sideBarOpened;
+  sideBarClosed: $sideBarClosed;
+}

@@ -56,10 +56,11 @@ const onLinkClick = (item) => {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/styles/variables.module.scss';
 .breadcrumb {
   display: inline-block;
   font-size: 14px;
-  line-height: 50px;
+  line-height: #{$topHeight};
   margin-left: 8px;
 
   .no-redirect {

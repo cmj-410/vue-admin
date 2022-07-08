@@ -37,7 +37,7 @@ const curRoute = computed(() => route.path)
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/variables.scss';
+@import '~@/styles/variables.module.scss';
 .title {
   height: #{$topHeight};
   line-height: #{$topHeight};

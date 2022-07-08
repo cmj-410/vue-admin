@@ -21,9 +21,7 @@ import ThemeTangle from '@/components/ThemeTangle'
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/variables.scss';
 .wrapper {
-  // height: #{$topHeight};
   overflow: hidden;
   .floatLeft {
     float: left;

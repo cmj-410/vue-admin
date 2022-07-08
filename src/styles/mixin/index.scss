@@ -1,5 +1,6 @@
-@import '~@/styles/variables.scss';
+@import '~@/styles/variables.module.scss';
 
+// navBar组件wrapper的通用样式
 @mixin navBarComponentStyle {
   width: #{$topHeight};
   height: #{$topHeight};
@@ -7,7 +8,7 @@
   align-items: center;
   justify-content: center;
 } 
-
+// 接上，一些组件额外需要的hover效果
 @mixin hoverStyle {
   &:hover {
     background: #eee;

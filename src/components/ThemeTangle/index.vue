@@ -7,8 +7,14 @@
 
 <script setup>
 import { useStore } from 'vuex'
+import { useDark, useToggle } from '@vueuse/core'
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+
 const store = useStore()
 const tangleThemeColor = () => {
+  toggleDark()
   store.commit('app/tangleTheme')
 }
 </script>

@@ -1,10 +1,16 @@
 <template>
   <el-container>
-    <el-aside :width="$store.getters.sidebarOpened ? '64px' : '200px'">
+    <el-aside
+      :width="
+        $store.getters.sidebarOpened
+          ? $store.getters.scssVariables.sideBarClosed
+          : $store.getters.scssVariables.sideBarOpened
+      "
+    >
       <SideBar />
     </el-aside>
     <el-container>
-      <el-header height="50px">
+      <el-header :height="$store.getters.scssVariables.topHeight">
         <NavBar />
       </el-header>
       <el-main>

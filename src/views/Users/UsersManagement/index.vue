@@ -98,15 +98,17 @@
     </template>
 
     <template #footerPart>
-      <el-pagination
-        @size-change="pageSizeChange"
-        @current-change="pageChange"
-        :current-page="queryFormParams.pageCurrent"
-        :page-size="queryFormParams.pageSize"
-        :page-sizes="[5, 10, 20]"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="totalRows"
-      ></el-pagination>
+      <el-config-provider :locale="zhCn">
+        <el-pagination
+          @size-change="pageSizeChange"
+          @current-change="pageChange"
+          :current-page="queryFormParams.pageCurrent"
+          :page-size="queryFormParams.pageSize"
+          :page-sizes="[5, 10, 20]"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totalRows"
+        ></el-pagination>
+      </el-config-provider>
     </template>
   </BaseTabelLayout>
   <OptionModal
@@ -122,6 +124,7 @@ import { ref } from 'vue'
 import { apiUsersList, apiDeleteUser } from '@/api/users'
 import BaseTabelLayout from '@/components/BaseTabelLayout'
 import OptionModal from './components/optionModal.vue'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 const queryFormParams = ref({
   userName: '',
