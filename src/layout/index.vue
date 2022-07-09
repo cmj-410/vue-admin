@@ -17,6 +17,7 @@
       <el-header :height="$store.getters.scssVariables.topHeight + 1">
         <NavBar />
       </el-header>
+      <Tags />
       <el-main>
         <AppMain />
       </el-main>
@@ -29,6 +30,7 @@ import { ref } from 'vue'
 import NavBar from './components/NavBar'
 import SideBar from './components/SideBar'
 import AppMain from './components/AppMain'
+import Tags from '@/components/Tags'
 </script>
 
 <style lang="scss" scoped>

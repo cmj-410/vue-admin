@@ -1,1 +1,3 @@
-<template>角色管理</template>
+<template>
+  <h2>角色管理</h2>
+</template>

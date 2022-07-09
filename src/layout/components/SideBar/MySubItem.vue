@@ -33,13 +33,15 @@
 <script setup>
 import { defineProps, computed } from 'vue'
 import { useStore } from 'vuex'
+import cssVariables from '@/styles/variables.module.scss'
+
 const props = defineProps(['item'])
 const store = useStore()
 const hoverBg = computed(() => {
   if (store.getters.themeColorDay) {
-    return 'rgba(211, 211, 211, 0.3)'
+    return cssVariables.menuActiveBgColor
   } else {
-    return '#181818'
+    return cssVariables.darkMenuActiveBgColor
   }
 })
 </script>

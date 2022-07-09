@@ -1,1 +1,3 @@
-<template>首页</template>
+<template>
+  <el-empty description="啥也没有" />
+</template>

@@ -11,7 +11,7 @@
       </div>
       <div class="tableCard">
         <el-card shadow="never" class="marginbottom">
-          <el-scrollbar height="338px">
+          <el-scrollbar height="300px">
             <slot name="tablePart" />
           </el-scrollbar>
         </el-card>

@@ -18,6 +18,15 @@ export default {
       meta: {
         title: '用户管理'
       }
+    },
+    {
+      path: '/users/UsersManagement/import',
+      component: () =>
+        import(
+          /* webpackChunkName: "UsersImport" */ '@/views/Users/UsersManagement/importUsers/index'),
+      meta: {
+        title: '导入用户数据'
+      }
     }
   ]
 }

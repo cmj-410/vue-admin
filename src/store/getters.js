@@ -3,5 +3,6 @@ export default {
   hasUserInfo: state => Object.keys(state.users.userInfo).length > 0,
   sidebarOpened: state => state.app.sidebarOpened,
   themeColorDay: state => state.app.themeColorDay === 'auto',
-  scssVariables: state => state.app.scssVariables
+  scssVariables: state => state.app.scssVariables,
+  tagsList: state => state.app.tagsList
 }

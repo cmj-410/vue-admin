@@ -7,11 +7,13 @@ $sideBarClosed: 64px;
 $sideBarBgColor: lightgray;
 $menuBgColor: gray;
 $menuActiveFontColor: skyblue;
+$menuActiveBgColor: rgba(211, 211, 211, 0.3);
 
 // 暗黑模式侧边菜单样式
 $darkSideBarBgColor: rgba(0, 0, 0, 0.2);
 $darkMenuBgColor: rgba(0, 0, 0, 0.4);
 $darkMenuActiveFontColor: yellow;
+$darkMenuActiveBgColor: #181818;
 
 :export{
   topHeight: $topHeight;
@@ -19,6 +21,8 @@ $darkMenuActiveFontColor: yellow;
   sideBarClosed: $sideBarClosed;
   menuBgColor: $menuBgColor;
   menuActiveFontColor: $menuActiveFontColor;
+  menuActiveBgColor: $menuActiveBgColor;
   darkMenuBgColor: $darkMenuBgColor;
   darkMenuActiveFontColor: $darkMenuActiveFontColor;
+  darkMenuActiveBgColor: $darkMenuActiveBgColor;
 }

@@ -28,6 +28,7 @@
             maxlength="20"
             size="large"
             show-password
+            @keyup.enter="clickLogin"
           >
             <template #prefix>
               <el-icon><Lock /></el-icon>
