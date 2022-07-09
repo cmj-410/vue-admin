@@ -11,7 +11,7 @@
 // 接上，一些组件额外需要的hover效果
 @mixin hoverStyle {
   &:hover {
-    background: #eee;
+    background: lightgray;
   }
 }
 

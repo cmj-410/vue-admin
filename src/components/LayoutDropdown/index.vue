@@ -18,7 +18,6 @@
 
 <script setup>
 import { useStore } from 'vuex'
-
 const store = useStore()
 const logout = () => {
   store.dispatch('users/logout')

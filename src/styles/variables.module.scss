@@ -1,9 +1,24 @@
+// 顶部header高度
 $topHeight: 50px;
+// 侧边栏宽度
 $sideBarOpened: 200px;
 $sideBarClosed: 64px;
+// 普通侧边菜单样式
+$sideBarBgColor: lightgray;
+$menuBgColor: gray;
+$menuActiveFontColor: skyblue;
+
+// 暗黑模式侧边菜单样式
+$darkSideBarBgColor: rgba(0, 0, 0, 0.2);
+$darkMenuBgColor: rgba(0, 0, 0, 0.4);
+$darkMenuActiveFontColor: yellow;
 
 :export{
   topHeight: $topHeight;
   sideBarOpened: $sideBarOpened;
   sideBarClosed: $sideBarClosed;
+  menuBgColor: $menuBgColor;
+  menuActiveFontColor: $menuActiveFontColor;
+  darkMenuBgColor: $darkMenuBgColor;
+  darkMenuActiveFontColor: $darkMenuActiveFontColor;
 }

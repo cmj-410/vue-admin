@@ -6,7 +6,7 @@ export default {
   namespaced: true,
   state: () => ({
     sidebarOpened: getItem(SIDERBAROPENED) ?? false,
-    themeColorDay: getItem(THEMECOLORDAY) ?? true,
+    themeColorDay: getItem('vueuse-color-scheme'),
     scssVariables
   }),
   mutations: {
@@ -15,8 +15,11 @@ export default {
       setItem(SIDERBAROPENED, state.sidebarOpened)
     },
     tangleTheme(state) {
-      state.themeColorDay = !state.themeColorDay
-      setItem(THEMECOLORDAY, state.themeColorDay)
+      if (state.themeColorDay === 'auto') {
+        state.themeColorDay = 'dark'
+      } else {
+        state.themeColorDay = 'auto'
+      }
     }
   }
 }

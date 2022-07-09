@@ -6,11 +6,15 @@
           ? $store.getters.scssVariables.sideBarClosed
           : $store.getters.scssVariables.sideBarOpened
       "
+      :class="{
+        dayBgColor: $store.getters.themeColorDay,
+        darkBgColor: !$store.getters.themeColorDay
+      }"
     >
       <SideBar />
     </el-aside>
     <el-container>
-      <el-header :height="$store.getters.scssVariables.topHeight">
+      <el-header :height="$store.getters.scssVariables.topHeight + 1">
         <NavBar />
       </el-header>
       <el-main>
@@ -28,9 +32,15 @@ import AppMain from './components/AppMain'
 </script>
 
 <style lang="scss" scoped>
+@import '~@/styles/variables.module.scss';
 .el-aside {
   height: 100vh;
-  background: lightgray;
+}
+.dayBgColor {
+  background: #{$sideBarBgColor};
+}
+.darkBgColor {
+  background: #{$darkSideBarBgColor};
 }
 .el-header {
   border-bottom: 1px solid lightgray;

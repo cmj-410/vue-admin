@@ -7,9 +7,17 @@
     :default-active="curRoute"
     :uniqueOpened="true"
     style="border: none"
-    background-color="gray"
+    :background-color="
+      $store.getters.themeColorDay
+        ? $store.getters.scssVariables.menuBgColor
+        : $store.getters.scssVariables.darkMenuBgColor
+    "
     text-color="white"
-    active-text-color="skyblue"
+    :active-text-color="
+      $store.getters.themeColorDay
+        ? $store.getters.scssVariables.menuActiveFontColor
+        : $store.getters.scssVariables.darkMenuActiveFontColor
+    "
     :collapse="$store.getters.sidebarOpened"
     :collapse-transition="false"
   >

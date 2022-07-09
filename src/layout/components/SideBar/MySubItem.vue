@@ -31,12 +31,24 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
+import { useStore } from 'vuex'
 const props = defineProps(['item'])
+const store = useStore()
+const hoverBg = computed(() => {
+  if (store.getters.themeColorDay) {
+    return 'rgba(211, 211, 211, 0.3)'
+  } else {
+    return '#181818'
+  }
+})
 </script>
 
 <style lang="scss" scoped>
 a {
   text-decoration: none;
+}
+.el-menu-item:hover {
+  background: v-bind(hoverBg);
 }
 </style>
