@@ -7,7 +7,7 @@ export default {
   namespaced: true,
   state: () => ({
     sidebarOpened: getItem(SIDERBAROPENED) ?? false,
-    themeColorDay: getItem(NORMALTHEMECOLOR),
+    themeColorDay: getItem(NORMALTHEMECOLOR) ?? 'auto',
     tagsList: getItem(TAGSLIST) ?? [],
     scssVariables
   }),

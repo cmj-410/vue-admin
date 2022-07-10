@@ -45,7 +45,7 @@ export default {
       this.commit('users/setUserInfo', res)
       return res
     },
-    logout() {
+    async logout() {
       resetRouter()
       // 和下面那个是相同的原因
       this.commit('app/clearTagList')
@@ -54,7 +54,8 @@ export default {
       this.commit('users/setToken', '')
       this.commit('users/setUserInfo', {})
       removeAllItem()
-      router.push('/login')
+      await router.push('/login')
+      router.go(0)
     }
   }
 }

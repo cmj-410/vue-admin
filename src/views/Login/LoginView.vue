@@ -16,6 +16,7 @@
             maxlength="20"
             size="large"
             clearable
+            @keyup.enter="clickLogin"
           >
             <template #prefix>
               <el-icon><User /></el-icon>

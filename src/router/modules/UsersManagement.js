@@ -25,9 +25,17 @@ export default {
       path: '/users/UsersManagement/import',
       component: () =>
         import(
-          /* webpackChunkName: "UsersImport" */ '@/views/Users/UsersManagement/importUsers/index'),
+          /* webpackChunkName: "UsersImport" */ '@/views/Users/UsersManagement/importUsers'),
       meta: {
         title: '导入用户数据'
+      }
+    },
+    {
+      path: '/users/PersonalDetail/:userId',
+      component: () => import(/* webpackChunkName: "PersonalDetail" */ '@/views/Users/UsersManagement/usersDetail'),
+      props: true,
+      meta: {
+        title: '个人简历展示'
       }
     }
   ]

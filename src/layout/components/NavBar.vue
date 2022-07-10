@@ -9,6 +9,9 @@
     <div class="rightItem flexRow">
       <ThemeTangle />
       <LayoutDropdown />
+      <div class="userName">
+        {{ $store.getters.getCurrentUserInfo.userName }}
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +43,11 @@ import ThemeTangle from '@/components/ThemeTangle'
   }
   .flexRow {
     display: flex;
+  }
+  .userName {
+    height: 50px;
+    line-height: 50px;
+    margin: 0 10px;
   }
 }
 </style>

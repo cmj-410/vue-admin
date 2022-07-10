@@ -65,7 +65,18 @@
           <el-table-column prop="userId" label="用户ID" min-width="60" />
           <el-table-column prop="userName" label="用户名" min-width="60" />
           <el-table-column prop="mobile" label="手机号" min-width="60" />
-          <el-table-column prop="role" label="角色列表" min-width="60" />
+          <el-table-column prop="role" label="角色列表" min-width="60">
+            <template #default="scope">
+              <template v-for="item in scope.row.role" :key="item">
+                <el-tag size="small" v-if="item === 'admin'" type="success"
+                  >管理员</el-tag
+                >
+                <el-tag size="small" v-else>
+                  {{ item === 'vip' ? 'VIP用户' : '普通用户' }}
+                </el-tag>
+              </template>
+            </template>
+          </el-table-column>
           <el-table-column prop="state" label="状态" min-width="60">
             <template #default="scope">
               {{ scope.row.state === 1 ? '正常' : '停用' }}

@@ -28,6 +28,12 @@ export default {
       validator: mobileValidate
     }
   ],
+  role: [
+    {
+      required: true,
+      message: '请选择用户角色'
+    }
+  ],
   state: [
     {
       required: true,
