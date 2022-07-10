@@ -1,59 +1,45 @@
 <template>
-  <div class="importUsersWrapper">
-    <el-upload action="#" list-type="picture-card" :auto-upload="false">
-      <el-icon><Plus /></el-icon>
-
-      <template #file="{ file }">
-        <div>
-          <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
-          <span class="el-upload-list__item-actions">
-            <span
-              class="el-upload-list__item-preview"
-              @click="handlePictureCardPreview(file)"
-            >
-              <el-icon><zoom-in /></el-icon>
-            </span>
-            <span
-              v-if="!disabled"
-              class="el-upload-list__item-delete"
-              @click="handleDownload(file)"
-            >
-              <el-icon><Download /></el-icon>
-            </span>
-            <span
-              v-if="!disabled"
-              class="el-upload-list__item-delete"
-              @click="handleRemove(file)"
-            >
-              <el-icon><Delete /></el-icon>
-            </span>
-          </span>
-        </div>
-      </template>
-    </el-upload>
-
-    <el-dialog v-model="dialogVisible">
-      <img w-full :src="dialogImageUrl" alt="Preview Image" />
-    </el-dialog>
-  </div>
+  <UploadFile :onSuccess="onSuccess" />
 </template>
+
 <script setup>
-import { ref } from 'vue'
-
-const dialogImageUrl = ref('')
-const dialogVisible = ref(false)
-const disabled = ref(false)
-
-const handleRemove = (file) => {
-  console.log(file)
+import UploadFile from '@/components/UploadFile'
+import { USER_RELATIONS } from './transKey'
+import { apiImportUsers } from '@/api/users'
+import { useRouter } from 'vue-router'
+import { ElMessageBox } from 'element-plus'
+const router = useRouter()
+const onSuccess = async ({ header, results }) => {
+  const updateData = generateData(results)
+  try {
+    await apiImportUsers(updateData)
+    await router.push('/users/UsersManagement')
+    // 因为keep-alive的原因，这里再主动刷新一下
+    router.go(0)
+  } catch (err) {
+    ElMessageBox.alert(err.message, '用户导入错误信息', {
+      confirmButtonText: '确定'
+    })
+  }
 }
 
-const handlePictureCardPreview = (file) => {
-  dialogImageUrl.value = file.url
-  dialogVisible.value = true
-}
-
-const handleDownload = (file) => {
-  console.log(file)
+/**
+ * 筛选数据
+ */
+const generateData = (results) => {
+  const arr = []
+  results.forEach((item) => {
+    const userInfo = {}
+    Object.keys(item).forEach((key) => {
+      // role字段需要数组的格式
+      if (key === '角色') {
+        userInfo[USER_RELATIONS[key]] = item[key].split(',')
+      } else {
+        userInfo[USER_RELATIONS[key]] = item[key]
+      }
+    })
+    arr.push(userInfo)
+  })
+  return arr
 }
 </script>

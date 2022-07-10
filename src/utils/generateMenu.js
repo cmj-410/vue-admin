@@ -42,12 +42,13 @@ export function generateMenus(routes, basePath = '') {
   // 遍历路由表
   routes.forEach(item => {
     // 不存在 children && 不存在 meta 直接 return
-    if (isNull(item.meta) && isNull(item.children)) return
-    // 存在 children 不存在 meta，进入迭代
+    if (isNull(item.meta) && isNull(item.children) && !item.meta.showOnMenu) return
+    // 存在 children 不存在 meta，进入迭代 （顶级节点可能不显示在菜单上，其孩子显示，例如'/'）
     if (isNull(item.meta) && !isNull(item.children)) {
       result.push(...generateMenus(item.children))
       return
     }
+    // 存在meta不存在chidren （菜单树的最终子节点）
     // 合并 path 作为跳转路径
     const routePath = path.resolve(basePath, item.path)
     // 路由分离之后，存在同名父路由的情况，需要单独处理
@@ -59,13 +60,13 @@ export function generateMenus(routes, basePath = '') {
         children: []
       }
 
-      // title存在
-      if (route.meta.title) {
+      // showOnMenu,title存在（有showOnMenu，必有title）
+      if (route.meta.showOnMenu) {
         // meta 存在生成 route 对象，放入 arr
         result.push(route)
       }
     }
-
+    // meta和children两者都存在 （菜单树的顶部或中间节点）
     // 存在 children 进入迭代到children
     if (item.children) {
       route.children.push(...generateMenus(item.children, route.path))

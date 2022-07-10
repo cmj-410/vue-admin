@@ -30,6 +30,9 @@ export default {
     removeTag(state, { ind }) {
       state.tagsList.splice(ind, 1)
       setItem(TAGSLIST, state.tagsList)
+    },
+    clearTagList(state) {
+      state.tagsList = []
     }
   }
 }

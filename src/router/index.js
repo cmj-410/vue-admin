@@ -34,6 +34,7 @@ export const publicRoutes = [
           import(
             /* webpackChunkName: "homePage" */ '@/views/HomePage'),
         meta: {
+          showOnMenu: true,
           title: '首页',
           icon: 'homeFilled'
         }

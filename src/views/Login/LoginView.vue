@@ -58,8 +58,8 @@ import { useRouter } from 'vue-router'
 import formRules from './loginFromRules'
 
 const loginForm = ref({
-  userName: '',
-  password: ''
+  userName: 'sam',
+  password: '123456'
 })
 const loginFromRef = ref(null)
 const isLoading = ref(false)

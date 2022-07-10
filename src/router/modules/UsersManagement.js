@@ -6,6 +6,7 @@ export default {
   redirect: '/users/UsersManagement',
   name: 'UsersManagement',
   meta: {
+    showOnMenu: true,
     title: '系统管理',
     icon: 'setting'
   },
@@ -16,6 +17,7 @@ export default {
         import(
           /* webpackChunkName: "UsersManagement" */ '@/views/Users/UsersManagement'),
       meta: {
+        showOnMenu: true,
         title: '用户管理'
       }
     },

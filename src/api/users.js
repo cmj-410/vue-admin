@@ -59,6 +59,17 @@ export const apiAddUser = data => {
 }
 
 /**
+ * import批量导入用户
+ */
+export const apiImportUsers = data => {
+  return request({
+    url: 'users/import-users',
+    method: 'POST',
+    data
+  })
+}
+
+/**
  * 删除用户
  */
 export const apiDeleteUser = data => {

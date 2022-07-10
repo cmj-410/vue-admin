@@ -1,0 +1,9 @@
+/**
+ * 导入数据对应表
+ */
+export const USER_RELATIONS = {
+  姓名: 'userName',
+  联系方式: 'mobile',
+  角色: 'role',
+  状态: 'state'
+}

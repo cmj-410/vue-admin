@@ -47,6 +47,7 @@ export default {
     },
     logout() {
       resetRouter()
+      this.commit('app/clearTagList')
       this.commit('users/setToken', '')
       this.commit('users/setUserInfo', {})
       removeAllItem()
