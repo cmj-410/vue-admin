@@ -24,7 +24,7 @@ const onSuccess = async ({ header, results }) => {
 }
 
 /**
- * 筛选数据
+ * 将数据转化一下
  */
 const generateData = (results) => {
   const arr = []

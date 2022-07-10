@@ -54,7 +54,9 @@
         >
         <div class="floatRight">
           <el-button type="success" @click="importUsers">导入</el-button>
-          <el-button type="info" @click="exportUsers">导出</el-button>
+          <el-button type="info" @click="exportUsers" :loading="loading"
+            >导出</el-button
+          >
         </div>
       </template>
 
@@ -135,7 +137,9 @@ import { apiUsersList, apiDeleteUser } from '@/api/users'
 import BaseTabelLayout from '@/components/BaseTabelLayout'
 import OptionModal from './components/optionModal.vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import noFrequentlyClick from '@/utils/noFrequentlyClick'
 import { useRouter } from 'vue-router'
+import { USER_RELATIONS, USER_RELATIONS_RE } from './importUsers/transKey'
 
 const queryFormParams = ref({
   userName: '',
@@ -196,7 +200,53 @@ const router = useRouter()
 const importUsers = () => {
   router.push('/users/UsersManagement/import')
 }
-const exportUsers = () => {}
+
+// 导出的loading
+const loading = ref(false)
+// 导出事件处理
+const exportUsers = noFrequentlyClick(async () => {
+  loading.value = true
+  const resList = await apiUsersList({
+    pageCurrent: 1,
+    // 相当于所有数据
+    pageSize: 9999
+  })
+  // 导入工具包
+  const excel = await import('@/utils/Export2Excel')
+  const data = formatJson(USER_RELATIONS, resList.list)
+  debugger
+  const myheader = ['姓名', '联系方式', '角色', '状态']
+  await excel.export_json_to_excel({
+    // excel 表头
+    header: myheader,
+    // header: Object.keys(USER_RELATIONS),
+    // excel 数据（二维数组结构）
+    data,
+    // 文件名称
+    filename: '用户信息表',
+    // 是否自动列宽
+    autoWidth: true,
+    // 文件类型
+    bookType: 'xlsx'
+  })
+  loading.value = false
+})
+
+// 该方法负责将数组转化成二维数组
+const formatJson = (headers, rows) => {
+  // 首先遍历数组
+  // [{ username: '张三'},{},{}]  => [[’张三'],[],[]]
+  return rows.map((item) => {
+    return Object.keys(headers).map((key) => {
+      // 角色特殊处理（数组转字符串显示）
+      if (headers[key] === 'role') {
+        const roles = item[headers[key]]
+        return roles.join(',')
+      }
+      return item[headers[key]]
+    })
+  })
+}
 </script>
 
 <style lang="scss" scoped>

@@ -23,6 +23,9 @@ export default {
         state.themeColorDay = 'auto'
       }
     },
+    tangleThemeDay(state) {
+      state.themeColorDay = 'auto'
+    },
     addTags(state, payload) {
       state.tagsList.push(payload)
       setItem(TAGSLIST, state.tagsList)

@@ -7,3 +7,10 @@ export const USER_RELATIONS = {
   角色: 'role',
   状态: 'state'
 }
+
+export const USER_RELATIONS_RE = {
+  userName: '姓名',
+  mobile: '联系方式',
+  role: '角色',
+  state: '状态'
+}

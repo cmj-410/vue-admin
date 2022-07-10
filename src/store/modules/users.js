@@ -47,7 +47,10 @@ export default {
     },
     logout() {
       resetRouter()
+      // 和下面那个是相同的原因
       this.commit('app/clearTagList')
+      // dark模式退出，重新登入模式的标记没有变回day
+      this.commit('app/tangleThemeDay')
       this.commit('users/setToken', '')
       this.commit('users/setUserInfo', {})
       removeAllItem()
