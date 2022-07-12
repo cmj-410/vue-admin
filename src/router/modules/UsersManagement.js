@@ -4,6 +4,8 @@ export default {
   path: '/users',
   component: layout,
   redirect: '/users/UsersManagement',
+  // 这个name是菜单权限控制所必要的，通过后其children均有权限
+  // 细粒度的权限由按钮控制
   name: 'UsersManagement',
   meta: {
     showOnMenu: true,
@@ -27,6 +29,7 @@ export default {
         import(
           /* webpackChunkName: "UsersImport" */ '@/views/Users/UsersManagement/importUsers'),
       meta: {
+        showOnMenu: true,
         title: '导入用户数据'
       }
     },
