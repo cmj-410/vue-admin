@@ -17,7 +17,7 @@ export default {
       path: '/users/UsersManagement',
       component: () =>
         import(
-          /* webpackChunkName: "UsersManagement" */ '@/views/Users/UsersManagement'),
+          /* webpackChunkName: "UsersManagement" */ '@/views/System/UsersManagement'),
       meta: {
         showOnMenu: true,
         title: '用户管理'
@@ -27,15 +27,14 @@ export default {
       path: '/users/UsersManagement/import',
       component: () =>
         import(
-          /* webpackChunkName: "UsersImport" */ '@/views/Users/UsersManagement/importUsers'),
+          /* webpackChunkName: "UsersImport" */ '@/views/System/UsersManagement/importUsers'),
       meta: {
-        showOnMenu: true,
         title: '导入用户数据'
       }
     },
     {
       path: '/users/PersonalDetail/:userId',
-      component: () => import(/* webpackChunkName: "PersonalDetail" */ '@/views/Users/UsersManagement/usersDetail'),
+      component: () => import(/* webpackChunkName: "PersonalDetail" */ '@/views/System/UsersManagement/usersDetail'),
       props: true,
       meta: {
         title: '个人简历展示'

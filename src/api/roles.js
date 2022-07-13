@@ -1,15 +1,8 @@
 import request from '@/utils/request'
 
 /**
- * 获取角色信息
+ * 角色权限树在permission路由中
  */
-export const apiRoleDetail = params => {
-  return request({
-    url: 'roles/detail',
-    method: 'GET',
-    params
-  })
-}
 
 /**
  * 获取角色列表
@@ -47,7 +40,7 @@ export const apiAddRole = data => {
 }
 
 /**
- * 删除用户
+ * 删除角色
  */
 export const apiDeleteRole = data => {
   return request({

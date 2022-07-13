@@ -3,8 +3,8 @@ import layout from '@/layout'
 export default {
   path: '/users',
   component: layout,
-  redirect: '/users/UsersManagement',
-  name: 'RoleManagement',
+  redirect: '/sys/MenuManagement',
+  name: 'MenuManagement',
   meta: {
     showOnMenu: true,
     title: '系统管理',
@@ -12,12 +12,12 @@ export default {
   },
   children: [
     {
-      path: '/users/RoleManagement',
+      path: '/sys/MenuManagement',
       component: () =>
-        import(/* webpackChunkName: "RoleManagement" */ '@/views/System/RoleManagement'),
+        import(/* webpackChunkName: "MenuManagement" */ '@/views/System/MenuManagement'),
       meta: {
         showOnMenu: true,
-        title: '角色管理'
+        title: '菜单管理'
       }
     }
   ]

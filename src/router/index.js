@@ -4,6 +4,7 @@ import layout from '@/layout'
 import Page404 from '@/views/ErrorPage/Page404.vue'
 import UsersManagementRouts from './modules/UsersManagement'
 import RoleManagementRoutes from './modules/RoleManagement'
+import MenuManagementRoutes from './modules/MenuManagement'
 import store from '@/store'
 
 /**
@@ -11,7 +12,8 @@ import store from '@/store'
  */
 export const privateRoutes = [
   UsersManagementRouts,
-  RoleManagementRoutes
+  RoleManagementRoutes,
+  MenuManagementRoutes
 ]
 
 export const publicRoutes = [
