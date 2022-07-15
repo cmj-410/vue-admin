@@ -1,8 +1,15 @@
 import request from '@/utils/request'
 
 /**
- * 角色权限树在permission路由中
+ * 角色权限数组，方便在tree组件中渲染存在的权限
  */
+export const apiRolePermission = params => {
+  return request({
+    url: 'roles/rolePermissionsList',
+    method: 'GET',
+    params
+  })
+}
 
 /**
  * 获取角色列表
@@ -17,7 +24,7 @@ export const apiRolesList = () => {
 /**
  * 编辑角色信息
  */
-export const apiEditUser = data => {
+export const apiEditRole = data => {
   return request({
     url: 'roles/operate',
     method: 'POST',

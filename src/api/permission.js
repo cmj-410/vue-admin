@@ -1,9 +1,8 @@
-import { request } from '@/utils/request'
+import request from '@/utils/request'
 
-export const apiRolePermission = params => {
+export const apiAllPermission = () => {
   return request({
-    url: 'permissions/roleList',
-    method: 'GET',
-    params
+    url: 'permissions/all-list',
+    method: 'GET'
   })
 }
