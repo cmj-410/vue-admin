@@ -2,21 +2,37 @@
   <div class="wrapper">
     <el-dialog
       :model-value="modelValue"
-      title="编辑用户权限"
       @open="initDialog"
       @close="close"
       :width="400"
     >
-      <el-tree
-        ref="treeRef"
-        :data="permissionTree"
-        show-checkbox
-        default-expand-all
-        node-key="permissionCode"
-        :check-strictly="true"
-        highlight-current
-        :props="defaultProps"
-      />
+      <template #title>
+        <div class="dialogHeader">{{ dialogTitle }}</div>
+      </template>
+      <div v-if="!$props.roleId" style="margin: 10px 0">
+        <el-form ref="addRoleRef" :rules="newRoleRule" :model="newRole">
+          <el-form-item prop="roleCode" label="角色代码">
+            <el-input v-model="newRole.roleCode"></el-input>
+          </el-form-item>
+          <el-form-item prop="roleName" label="角色名称">
+            <el-input v-model="newRole.roleName"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <el-scrollbar>
+        <div style="height: 300px">
+          <el-tree
+            ref="treeRef"
+            :data="permissionTree"
+            show-checkbox
+            default-expand-all
+            node-key="permissionCode"
+            :check-strictly="true"
+            highlight-current
+            :props="defaultProps"
+          />
+        </div>
+      </el-scrollbar>
       <template #footer>
         <div class="footerWrapper">
           <el-button @click="close">取消</el-button>
@@ -30,9 +46,29 @@
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue'
 import { apiAllPermission } from '@/api/permission'
-import { apiRolePermission, apiEditRole } from '@/api/roles'
+import { apiRolePermission, apiEditRole, apiAddRole } from '@/api/roles'
 
+const dialogTitle = ref('')
+const newRole = ref({
+  roleCode: '',
+  roleName: ''
+})
+const newRoleRule = {
+  roleCode: [
+    {
+      required: true,
+      message: '请输入角色代码'
+    }
+  ],
+  roleName: [
+    {
+      required: true,
+      message: '请输入角色名'
+    }
+  ]
+}
 const treeRef = ref(null)
+const addRoleRef = ref(null)
 const permissionTree = ref([])
 const roleHasPermissionList = ref([])
 const defaultProps = {
@@ -46,15 +82,21 @@ const props = defineProps({
     required: true
   },
   roleId: {
-    type: Number,
-    required: true
+    type: Number
   }
 })
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'successAdd'])
 
 const initDialog = async () => {
+  if (props.roleId) {
+    dialogTitle.value = '编辑角色权限'
+  } else {
+    dialogTitle.value = '新增角色'
+  }
   await getAllPermission()
-  getRolePermission(props.roleId)
+  if (props.roleId) {
+    getRolePermission(props.roleId)
+  }
 }
 
 const getAllPermission = async () => {
@@ -69,6 +111,7 @@ const getRolePermission = async (roleId) => {
   )
 }
 
+// 新增或编辑角色的dialog确认点击
 const commit = async () => {
   const nodeList = treeRef.value?.getCheckedNodes(false, false)
   const menuList = []
@@ -81,13 +124,34 @@ const commit = async () => {
       pointsList.push(item.permissionCode)
     }
   })
-  await apiEditRole({
-    roleId: props.roleId,
-    permission: {
-      menus: menuList,
-      points: pointsList
-    }
-  })
+  if (props.roleId) {
+    await apiEditRole({
+      roleId: props.roleId,
+      permission: {
+        menus: menuList,
+        points: pointsList
+      }
+    })
+  } else {
+    addRoleRef.value.validate(async (isValidate) => {
+      if (!isValidate) return
+      await apiAddRole({
+        roleCode: newRole.value.roleCode,
+        roleName: newRole.value.roleName,
+        permission: {
+          menus: menuList,
+          points: pointsList
+        }
+      })
+      // 置空
+      newRole.value = {
+        roleCode: '',
+        roleName: ''
+      }
+      emits('successAdd')
+    })
+  }
+
   close()
 }
 
@@ -100,6 +164,14 @@ const close = () => {
 </script>
 
 <style lang="scss" scoped>
+.dialogHeader {
+  font: 25px;
+  text-align: center;
+}
+::v-deep .el-dialog__body {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .footerWrapper {
   display: flex;
   justify-content: center;

@@ -1,7 +1,7 @@
 <template>
   <div class="roleManagementWrapper">
     <div class="optionBtn">
-      <el-button type="primary" @click="getRoleList">新增角色</el-button>
+      <el-button type="primary" @click="addRole">新增角色</el-button>
     </div>
     <el-card shadow="never">
       <el-table :data="tableData" style="width: 100%" border>
@@ -28,7 +28,7 @@
               confirm-button-text="确定"
               cancel-button-text="取消"
               title="确认删除该角色么?"
-              @confirm="deleteRole(scope.row)"
+              @confirm="deleteRole(scope.row.roleId)"
             >
               <template #reference>
                 <el-button link type="primary">
@@ -41,18 +41,22 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <option-modal v-model="isVisible" :roleId="editRoleId" />
+    <option-modal
+      v-model="isVisible"
+      :roleId="editRoleId"
+      @successAdd="getRoleList"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { apiRolesList } from '@/api/roles'
+import { apiRolesList, apiDeleteRole } from '@/api/roles'
 import OptionModal from './components/optionModal.vue'
 
 const tableData = ref([])
 const isVisible = ref(false)
-const editRoleId = ref(0)
+const editRoleId = ref()
 
 const getRoleList = async () => {
   const res = await apiRolesList()
@@ -60,11 +64,18 @@ const getRoleList = async () => {
 }
 getRoleList()
 
+const addRole = () => {
+  editRoleId.value = null
+  isVisible.value = true
+}
 const editRole = (roleId) => {
   editRoleId.value = roleId
   isVisible.value = true
 }
-const deleteRole = () => {}
+const deleteRole = async (roleId) => {
+  await apiDeleteRole({ roleId })
+  getRoleList()
+}
 </script>
 
 <style lang="scss" scoped>
