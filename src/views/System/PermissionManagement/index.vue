@@ -32,26 +32,86 @@
           />
         </template>
       </el-table-column>
+      <el-table-column label="操作" min-width="120">
+        <template #default="scope">
+          <template v-if="scope.row.permissionType === 'menu'">
+            <el-button
+              link
+              type="primary"
+              @click.prevent="addPower(scope.row.parent)"
+            >
+              <el-icon><CirclePlus /></el-icon>
+              <span style="margin-left: 3px">同级权限</span>
+            </el-button>
+            <el-button
+              link
+              type="primary"
+              @click.prevent="addPower(scope.row.permissionCode)"
+            >
+              <el-icon><CirclePlusFilled /></el-icon>
+              <span style="margin-left: 3px">子级权限</span>
+            </el-button>
+          </template>
+          <template v-else>
+            <el-popconfirm
+              confirm-button-text="确定"
+              cancel-button-text="取消"
+              title="确认删除该权限?"
+              @confirm="deletePower(scope.row.permissionCode)"
+            >
+              <template #reference>
+                <el-button link type="primary">
+                  <el-icon><Delete /></el-icon>
+                  <span style="margin-left: 3px">删除</span>
+                </el-button>
+              </template>
+            </el-popconfirm>
+          </template>
+        </template>
+      </el-table-column>
     </el-table>
+    <addModal v-model="isVisible" :parent="parent" @success="addPowerSuccess" />
   </div>
 </template>
 <script setup>
 import { ref } from 'vue'
-import { apiAllPermission, apiChangePermissionState } from '@/api/permission'
+import {
+  apiAllPermission,
+  apiChangePermissionState,
+  apiDeletePermission
+} from '@/api/permission'
+import addModal from './components/optionModal.vue'
 
 const tableData = ref([])
+const isVisible = ref(false)
+const parent = ref('')
+
+// 更改权限状态
 const changePermissionState = ({ permissionCode, state }) => {
   apiChangePermissionState({
     permissionCode,
     state
   })
 }
-
 const getAllpermissions = async () => {
   tableData.value = await apiAllPermission()
 }
 // 初始获取完整权限数据
 getAllpermissions()
+// 添加权限/同级或子级
+const addPower = (theParent) => {
+  parent.value = theParent
+  isVisible.value = true
+}
+// 添加权限成功回调
+const addPowerSuccess = () => {
+  parent.value = ''
+  getAllpermissions()
+}
+const deletePower = (permissionCode) => {
+  apiDeletePermission({ permissionCode })
+  getAllpermissions()
+}
 </script>
 
 <style lang="scss" scoped>
