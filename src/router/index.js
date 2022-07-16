@@ -33,8 +33,7 @@ export const publicRoutes = [
       {
         path: '/home',
         component: () =>
-          import(
-            /* webpackChunkName: "homePage" */ '@/views/HomePage'),
+          import(/* webpackChunkName: "homePage" */ '@/views/HomePage'),
         meta: {
           showOnMenu: true,
           title: '首页',
@@ -56,7 +55,7 @@ export const publicRoutes = [
 export function resetRouter() {
   if (store.getters.userInfo?.permission?.menus) {
     const menus = store.getters.userInfo.permission.menus
-    menus.forEach(menu => {
+    menus.forEach((menu) => {
       router.removeRoute(menu)
     })
   }

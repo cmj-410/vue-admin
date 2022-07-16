@@ -1,10 +1,10 @@
 import layout from '@/layout'
 
 export default {
-  path: '/users',
+  path: '/sys',
   component: layout,
-  redirect: '/sys/MenuManagement',
-  name: 'MenuManagement',
+  redirect: '/sys/PermissionManagement',
+  name: 'PermissionManagement',
   meta: {
     showOnMenu: true,
     title: '系统管理',
@@ -12,12 +12,14 @@ export default {
   },
   children: [
     {
-      path: '/sys/MenuManagement',
+      path: '/sys/PermissionManagement',
       component: () =>
-        import(/* webpackChunkName: "MenuManagement" */ '@/views/System/MenuManagement'),
+        import(
+          /* webpackChunkName: "PermissionManagement" */ '@/views/System/PermissionManagement'
+        ),
       meta: {
         showOnMenu: true,
-        title: '菜单管理'
+        title: '权限管理'
       }
     }
   ]

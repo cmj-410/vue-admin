@@ -61,6 +61,7 @@ import { ref, defineProps, defineEmits } from 'vue'
 import { apiUsersProfile, apiEditUser, apiAddUser } from '@/api/users'
 import { ElMessage } from 'element-plus'
 import formRules from './rules'
+import { getRoleList } from '../utils/roleCode2name'
 
 const props = defineProps({
   modelValue: {
@@ -78,24 +79,11 @@ const emits = defineEmits(['update:modelValue', 'success'])
 
 const modalTitle = ref()
 const editForm = ref({})
-const editFormRef = ref({})
-const roleList = ref([
-  {
-    value: 'admin',
-    label: '管理员'
-  },
-  {
-    value: 'vip',
-    label: 'VIP用户'
-  },
-  {
-    value: 'user',
-    label: '普通用户'
-  }
-])
+const editFormRef = ref(null)
+const roleList = getRoleList()
 const initDialog = async () => {
   // 开始不要显示验证提示
-  editFormRef.value.resetFields()
+  editFormRef.value?.resetFields()
   // 如果存在用户id（默认不为0），即为编辑状态
   if (props.isEdit) {
     modalTitle.value = '编辑用户'

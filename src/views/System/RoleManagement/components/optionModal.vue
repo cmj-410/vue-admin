@@ -6,7 +6,7 @@
       @close="close"
       :width="400"
     >
-      <template #title>
+      <template #header>
         <div class="dialogHeader">{{ dialogTitle }}</div>
       </template>
       <div v-if="!$props.roleId" style="margin: 10px 0">

@@ -68,12 +68,13 @@
           <el-table-column prop="role" label="角色列表" min-width="60">
             <template #default="scope">
               <template v-for="item in scope.row.role" :key="item">
-                <el-tag size="small" v-if="item === 'admin'" type="success"
-                  >管理员</el-tag
+                <el-tag
+                  size="small"
+                  :type="roleCode2name[item].tagType ?? 'info'"
+                  >{{
+                    roleCode2name[item].label ?? item + '(前端设置角色信息)'
+                  }}</el-tag
                 >
-                <el-tag size="small" v-else>
-                  {{ item === 'vip' ? 'VIP用户' : '普通用户' }}
-                </el-tag>
               </template>
             </template>
           </el-table-column>
@@ -86,6 +87,7 @@
             prop="lastLoginTime"
             label="上次登录时间"
             min-width="80"
+            sortable
           >
             <template #default="scope">
               {{ scope.row.lastLoginTime.split('T')[0] }}
@@ -149,6 +151,7 @@ import BaseTabelLayout from '@/components/BaseTabelLayout'
 import OptionModal from './components/optionModal.vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import noFrequentlyClick from '@/utils/noFrequentlyClick'
+import { roleCode2name } from './utils/roleCode2name'
 import { useRouter } from 'vue-router'
 import { USER_RELATIONS, USER_RELATIONS_RE } from './importUsers/transKey'
 

@@ -1,9 +1,9 @@
 import layout from '@/layout'
 
 export default {
-  path: '/users',
+  path: '/sys',
   component: layout,
-  redirect: '/users/UsersManagement',
+  redirect: '/sys/UsersManagement',
   name: 'RoleManagement',
   meta: {
     showOnMenu: true,
@@ -12,9 +12,11 @@ export default {
   },
   children: [
     {
-      path: '/users/RoleManagement',
+      path: '/sys/RoleManagement',
       component: () =>
-        import(/* webpackChunkName: "RoleManagement" */ '@/views/System/RoleManagement'),
+        import(
+          /* webpackChunkName: "RoleManagement" */ '@/views/System/RoleManagement'
+        ),
       meta: {
         showOnMenu: true,
         title: '角色管理'

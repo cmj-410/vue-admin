@@ -6,3 +6,11 @@ export const apiAllPermission = () => {
     method: 'GET'
   })
 }
+
+export const apiChangePermissionState = (data) => {
+  return request({
+    url: 'permissions/close-permission',
+    method: 'POST',
+    data
+  })
+}
