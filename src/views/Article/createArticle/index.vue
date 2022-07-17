@@ -63,6 +63,7 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { ElMessage } from 'element-plus'
 import { apiAddArticle } from '@/api/article'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 // 编辑器模式
 const mode = ref('default') // simple, default
@@ -116,6 +117,7 @@ const handleCreated = (editor) => {
 }
 
 const store = useStore()
+const router = useRouter()
 const submitArticle = async () => {
   const validate = Object.keys(articleContent.value).every(key => {
     if (!articleContent.value[key]) return false
@@ -131,6 +133,9 @@ const submitArticle = async () => {
     userName: store.getters.getCurrentUserInfo.userName
   })
   initArticle()
+  router.push({
+    name: 'articleList'
+  })
 }
 </script>
 
