@@ -91,9 +91,11 @@ const clearData = () => {
   initEditForm()
 }
 
-const submitEdit = () => {
+const submitEdit = async () => {
   editFormRef.value.validate(async (valide) => {
     if (valide) {
+      editForm.value.parent = parentPower
+      debugger
       await apiAddPermission(editForm.value)
       emits('success')
       clearData()

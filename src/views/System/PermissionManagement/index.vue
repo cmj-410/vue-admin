@@ -7,7 +7,7 @@
       :tree-props="{ children: 'children' }"
       border
       default-expand-all
-      max-height="550"
+      max-height="530"
     >
       <el-table-column prop="permissionName" label="权限名" min-width="80" />
       <el-table-column prop="permissionCode" label="权限代码" min-width="80" />
@@ -105,7 +105,6 @@ const addPower = (theParent) => {
 }
 // 添加权限成功回调
 const addPowerSuccess = () => {
-  parent.value = ''
   getAllpermissions()
 }
 const deletePower = (permissionCode) => {
