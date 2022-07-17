@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, computed } from 'vue'
+import { ref, defineProps, computed, watch } from 'vue'
 import { apiGetTypeArticles } from '@/api/article'
 
 const props = defineProps(['activeTopic', 'thisType'])
@@ -34,17 +34,18 @@ const getArticleList = async () => {
     count: count.value,
     type: theTopic.value
   })
-  count.value += 1
+  // count.value += 1
 }
 
 const init = () => {
   // 如果是当前的panel被激活，获取相应的文章列表
-  // debugger
   if (theTopic.value === theType.value) {
     getArticleList()
   }
 }
+
 init()
+watch(theTopic, () => init())
 
 const handleChange = () => {}
 </script>

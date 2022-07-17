@@ -24,6 +24,7 @@ export const apiGetAllArticleTypes = () => {
 export const apiGetTypeArticles = ({ type, count }) => {
   return request({
     url: 'article/type-article-list',
-    method: 'GET'
+    method: 'GET',
+    params: { type, count }
   })
 }
