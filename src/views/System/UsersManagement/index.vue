@@ -39,6 +39,7 @@
                 }
               "
               :loading="isloading"
+              v-permissions="['userList']"
               >查询</el-button
             >
           </el-form-item>
@@ -46,17 +47,31 @@
       </template>
 
       <template #optionBtn>
-        <el-button
-          type="primary"
-          style="margin-bottom: 10px"
-          @click="addUserClick"
-          >新增用户</el-button
-        >
-        <div class="floatRight">
-          <el-button type="success" @click="importUsers">导入</el-button>
-          <el-button type="info" @click="exportUsers" :loading="loading"
-            >导出</el-button
-          >
+        <div class="btnGroup">
+          <span>
+            <el-button
+              type="primary"
+              style="margin-bottom: 10px"
+              @click="addUserClick"
+              v-permissions="['addUser']"
+              >新增用户</el-button
+            >
+          </span>
+          <div>
+            <el-button
+              type="success"
+              @click="importUsers"
+              v-permissions="['importUser']"
+              >导入</el-button
+            >
+            <el-button
+              type="info"
+              @click="exportUsers"
+              :loading="loading"
+              v-permissions="['exportUser']"
+              >导出</el-button
+            >
+          </div>
         </div>
       </template>
 
@@ -66,10 +81,17 @@
           <el-table-column prop="userName" label="用户名" min-width="60">
             <template #default="scope">
               <el-button
-                type="text"
+                link
+                type="primary"
                 @click="gotoUserDetail(scope.row.userId)"
+                v-if="
+                  $store.getters.getCurrentUserInfo.permission.points.includes(
+                    'userDetail'
+                  )
+                "
                 >{{ scope.row.userName }}</el-button
               >
+              <span v-else>{{ scope.row.userName }}</span>
             </template>
           </el-table-column>
           <el-table-column prop="mobile" label="手机号" min-width="60" />
@@ -107,6 +129,7 @@
                 link
                 type="primary"
                 @click.prevent="editUser(scope.row)"
+                v-permissions="['editUser']"
               >
                 <el-icon><Edit /></el-icon>
                 <span style="margin-left: 3px">编辑</span>
@@ -118,7 +141,7 @@
                 @confirm="deleteUser(scope.row)"
               >
                 <template #reference>
-                  <el-button link type="primary">
+                  <el-button link type="primary" v-permissions="['deleteUser']">
                     <el-icon><Delete /></el-icon>
                     <span style="margin-left: 3px">删除</span>
                   </el-button>
@@ -283,7 +306,8 @@ const formatJson = (headers, rows) => {
     }
   }
 }
-.floatRight {
-  float: right;
+.btnGroup {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

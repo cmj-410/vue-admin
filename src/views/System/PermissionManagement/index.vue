@@ -28,6 +28,11 @@
             :inactive-value="0"
             active-text="开启"
             inactive-text="关闭"
+            :disabled="
+              !$store.getters.getCurrentUserInfo.permission.points.includes(
+                'switchPermission'
+              )
+            "
             @change="changePermissionState(scope.row)"
           />
         </template>
@@ -39,6 +44,7 @@
               link
               type="primary"
               @click.prevent="addPower(scope.row.parent)"
+              v-permissions="['addPermissionMenu']"
             >
               <el-icon><CirclePlus /></el-icon>
               <span style="margin-left: 3px">同级权限</span>
@@ -47,6 +53,7 @@
               link
               type="primary"
               @click.prevent="addPower(scope.row.permissionCode)"
+              v-permissions="['addPermissionPoint']"
             >
               <el-icon><CirclePlusFilled /></el-icon>
               <span style="margin-left: 3px">子级权限</span>
@@ -60,7 +67,7 @@
               @confirm="deletePower(scope.row.permissionCode)"
             >
               <template #reference>
-                <el-button link type="primary">
+                <el-button link type="primary" v-permissions="['deletePoint']">
                   <el-icon><Delete /></el-icon>
                   <span style="margin-left: 3px">删除</span>
                 </el-button>

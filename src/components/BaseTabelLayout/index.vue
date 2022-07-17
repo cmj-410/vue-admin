@@ -33,13 +33,11 @@
   .container {
     flex-grow: 1;
     .marginbottom {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
-    .tableCard {
-      .optionBtn {
-        height: 42px;
-        margin-bottom: 10px;
-      }
+    .optionBtn {
+      height: 42px;
+      margin-bottom: 10px;
     }
   }
   .footerStyle {

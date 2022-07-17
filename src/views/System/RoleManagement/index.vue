@@ -1,7 +1,9 @@
 <template>
   <div class="roleManagementWrapper">
     <div class="optionBtn">
-      <el-button type="primary" @click="addRole">新增角色</el-button>
+      <el-button type="primary" @click="addRole" v-permissions="['addRole']"
+        >新增角色</el-button
+      >
     </div>
     <el-card shadow="never">
       <el-table :data="tableData" style="width: 100%" border>
@@ -20,6 +22,7 @@
               link
               type="primary"
               @click.prevent="editRole(scope.row.roleId)"
+              v-permissions="['editRole']"
             >
               <el-icon><Edit /></el-icon>
               <span style="margin-left: 3px">编辑</span>
@@ -31,7 +34,7 @@
               @confirm="deleteRole(scope.row.roleId)"
             >
               <template #reference>
-                <el-button link type="primary">
+                <el-button link type="primary" v-permissions="['deleteRole']">
                   <el-icon><Delete /></el-icon>
                   <span style="margin-left: 3px">删除</span>
                 </el-button>
