@@ -6,7 +6,6 @@
       row-key="permissionCode"
       :tree-props="{ children: 'children' }"
       border
-      default-expand-all
       max-height="530"
     >
       <el-table-column prop="permissionName" label="权限名" min-width="80" />

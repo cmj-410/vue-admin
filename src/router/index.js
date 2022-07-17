@@ -5,6 +5,7 @@ import Page404 from '@/views/ErrorPage/Page404.vue'
 import UsersManagementRouts from './modules/UsersManagement'
 import RoleManagementRoutes from './modules/RoleManagement'
 import PermissionManagementRoutes from './modules/PermissionManagement'
+import CreateArticleRoutes from './modules/CreateArticle'
 import store from '@/store'
 
 /**
@@ -13,7 +14,8 @@ import store from '@/store'
 export const privateRoutes = [
   UsersManagementRouts,
   RoleManagementRoutes,
-  PermissionManagementRoutes
+  PermissionManagementRoutes,
+  CreateArticleRoutes
 ]
 
 export const publicRoutes = [
@@ -38,6 +40,28 @@ export const publicRoutes = [
           showOnMenu: true,
           title: '首页',
           icon: 'homeFilled'
+        }
+      }
+    ]
+  },
+  {
+    path: '/article',
+    name: 'article',
+    redirect: '/article/list',
+    component: layout,
+    meta: {
+      showOnMenu: true,
+      title: '文章管理',
+      icon: 'Document'
+    },
+    children: [
+      {
+        path: '/article/list',
+        component: () =>
+          import(/* webpackChunkName: "article-list" */ '@/views/Article/list'),
+        meta: {
+          showOnMenu: true,
+          title: '文章列表'
         }
       }
     ]
