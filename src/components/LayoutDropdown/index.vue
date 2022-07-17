@@ -10,7 +10,6 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="gotoHome">主页</el-dropdown-item>
-          <el-dropdown-item @click="gotoUserDetail">个人简历</el-dropdown-item>
           <el-dropdown-item @click="logout" divided>退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -25,11 +24,6 @@ const store = useStore()
 const router = useRouter()
 const logout = () => {
   store.dispatch('users/logout')
-}
-const gotoUserDetail = () => {
-  router.push(
-    `/users/PersonalDetail/${store.getters.getCurrentUserInfo.userId}`
-  )
 }
 const gotoHome = () => {
   router.push('/home')

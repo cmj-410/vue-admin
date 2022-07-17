@@ -63,7 +63,15 @@
       <template #tablePart>
         <el-table :data="tableData" border style="width: 100%">
           <el-table-column prop="userId" label="用户ID" min-width="60" />
-          <el-table-column prop="userName" label="用户名" min-width="60" />
+          <el-table-column prop="userName" label="用户名" min-width="60">
+            <template #default="scope">
+              <el-button
+                type="text"
+                @click="gotoUserDetail(scope.row.userId)"
+                >{{ scope.row.userName }}</el-button
+              >
+            </template>
+          </el-table-column>
           <el-table-column prop="mobile" label="手机号" min-width="60" />
           <el-table-column prop="role" label="角色列表" min-width="60">
             <template #default="scope">
@@ -154,6 +162,7 @@ import noFrequentlyClick from '@/utils/noFrequentlyClick'
 import { roleCode2name } from './utils/roleCode2name'
 import { useRouter } from 'vue-router'
 import { USER_RELATIONS, USER_RELATIONS_RE } from './importUsers/transKey'
+import { useStore } from 'vuex'
 
 const queryFormParams = ref({
   userName: '',
@@ -213,6 +222,9 @@ const pageChange = (value) => {
 const router = useRouter()
 const importUsers = () => {
   router.push('/users/UsersManagement/import')
+}
+const gotoUserDetail = (userId) => {
+  router.push(`/users/PersonalDetail/${userId}`)
 }
 
 // 导出的loading
