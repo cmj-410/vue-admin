@@ -6,19 +6,19 @@
           <h1>{{ article.title }}</h1>
           <b style="margin-left: 20px">{{ article.userName }}</b>
         </template>
-        <div class="mutil-line-ellipsis">
-          <span v-html="article.content" />
-        </div>
+        <span v-html="article.content" />
       </el-collapse-item>
     </template>
   </el-collapse>
 </template>
 
 <script setup>
-import { ref, defineProps, computed, watch } from 'vue'
+import { ref, defineProps, defineEmits, computed, watch } from 'vue'
 import { apiGetTypeArticles } from '@/api/article'
 
-const props = defineProps(['activeTopic', 'thisType'])
+const props = defineProps(['activeTopic', 'thisType', 'option', 'tragger'])
+const emits = defineEmits(['successGetList'])
+
 const activeArticleId = ref()
 const showArticleList = ref([])
 const count = ref(0)
@@ -28,13 +28,17 @@ const theTopic = computed(() => {
 const theType = computed(() => {
   return props.thisType
 })
+const theTragger = computed(() => {
+  return props.tragger
+})
 
 const getArticleList = async () => {
-  showArticleList.value = await apiGetTypeArticles({
-    count: count.value,
+  const res = await apiGetTypeArticles({
+    ...props.option,
     type: theTopic.value
   })
-  // count.value += 1
+  emits('successGetList', res.page.total)
+  showArticleList.value = res.list
 }
 
 const init = () => {
@@ -45,7 +49,10 @@ const init = () => {
 }
 
 init()
+// 必须要watch props的变化，然后重新执行获取文章的函数
 watch(theTopic, () => init())
+// 通过监听触发器，知道什么时候更改了配置，以获取新的列表
+watch(theTragger, () => init())
 
 const handleChange = () => {}
 </script>

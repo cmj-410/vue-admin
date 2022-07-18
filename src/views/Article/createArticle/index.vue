@@ -120,7 +120,8 @@ const store = useStore()
 const router = useRouter()
 const submitArticle = async () => {
   const validate = Object.keys(articleContent.value).every(key => {
-    if (!articleContent.value[key]) return false
+    debugger
+    if (!articleContent.value[key] || articleContent.value[key]?.length === 0) return false
     return true
   })
   if (!validate) {

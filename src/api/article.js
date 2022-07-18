@@ -21,10 +21,10 @@ export const apiGetAllArticleTypes = () => {
 }
 
 // 获取某一类型的三篇文章（前端计数，这里没有用分页）
-export const apiGetTypeArticles = ({ type, count }) => {
+export const apiGetTypeArticles = (params) => {
   return request({
     url: 'article/type-article-list',
     method: 'GET',
-    params: { type, count }
+    params
   })
 }
