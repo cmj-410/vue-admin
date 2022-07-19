@@ -12,14 +12,16 @@
         <template #label>
           {{ item.label }}
         </template>
-        <articleCollapse
-          :ref="item.name"
-          :thisType="item.name"
-          :activeTopic="activeTopic"
-          :option="articleOption"
-          :tragger="tragger"
-          @successGetList="returnTotal"
-        />
+        <el-scrollbar height="500px">
+          <articleCollapse
+            :ref="item.name"
+            :thisType="item.name"
+            :activeTopic="activeTopic"
+            :option="articleOption"
+            :tragger="tragger"
+            @successGetList="returnTotal"
+          />
+        </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
     <el-drawer

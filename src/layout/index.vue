@@ -35,7 +35,8 @@ import Tags from '@/components/Tags'
 
 <style lang="scss" scoped>
 @import '~@/styles/variables.module.scss';
-.el-aside {
+.el-aside,
+.el-container {
   height: 100vh;
 }
 .dayBgColor {

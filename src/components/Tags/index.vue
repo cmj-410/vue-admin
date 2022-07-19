@@ -1,19 +1,21 @@
 <template>
-  <el-tabs
-    v-model="$route.path"
-    type="card"
-    closable
-    @tab-remove="removeTab"
-    @tab-click="goto"
-  >
-    <el-tab-pane
-      v-for="item in currentTagsList"
-      :key="item.fullPath"
-      :label="item.meta.title"
-      :name="item.fullPath"
+  <div class="tabsWrapper">
+    <el-tabs
+      v-model="$route.path"
+      type="card"
+      closable
+      @tab-remove="removeTab"
+      @tab-click="goto"
     >
-    </el-tab-pane>
-  </el-tabs>
+      <el-tab-pane
+        v-for="item in currentTagsList"
+        :key="item.fullPath"
+        :label="item.meta.title"
+        :name="item.fullPath"
+      >
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script setup>
