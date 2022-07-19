@@ -28,7 +28,7 @@
       direction="rtl"
       :before-close="handleClose"
     >
-      <el-form :model="articleOption">
+      <el-form :model="articleOption" label-position="top">
         <el-form-item prop="userName" label="筛选作者">
           <el-input
             placeholder="输入作者名称"
@@ -59,8 +59,8 @@
       </div>
       <template #footer>
         <div style="display: flex; justify-content: space-around">
+          <el-button @click="ConfirmOption" type="primary">确认配置</el-button>
           <el-button @click="clearOption">清空配置</el-button>
-          <el-button @click="ConfirmOption">确认配置</el-button>
         </div>
       </template>
     </el-drawer>

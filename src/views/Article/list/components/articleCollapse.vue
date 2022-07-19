@@ -3,10 +3,29 @@
     <template v-for="article in showArticleList" :key="article.articleId">
       <el-collapse-item :name="article.articleId">
         <template #title>
-          <h1>{{ article.title }}</h1>
-          <b style="margin-left: 20px">{{ article.userName }}</b>
+          <div class="titleWrapper">
+            <span class="title">{{ article.title }}</span>
+            <span class="rightPart">
+              <b>作者</b>
+              {{ article.userName }}
+              <b style="margin-left: 20px">更新时间</b
+              >{{ article.lastUpdateTime.split('T')[0] }}
+            </span>
+          </div>
         </template>
         <span v-html="article.content" />
+        <div style="padding-left: 10px">
+          <el-button
+            link
+            @click="
+              () => {
+                activeArticleId = null
+              }
+            "
+            type="success"
+            ><b>折叠该文章</b></el-button
+          >
+        </div>
       </el-collapse-item>
     </template>
   </el-collapse>
@@ -57,4 +76,13 @@ watch(theTragger, () => init())
 const handleChange = () => {}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  .title {
+    font-size: 26px !important;
+  }
+}
+</style>

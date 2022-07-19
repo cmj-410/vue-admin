@@ -20,15 +20,15 @@
           v-model="articleContent.articleAbstractItem"
         >
           <el-option
-            v-for="item in allArticleAbstracts"
-            :key="item.value"
+            v-for="item in articleTypes"
+            :key="item.name"
             :label="item.label"
-            :value="item.value"
+            :value="item.name"
           />
         </el-select>
       </el-form-item>
     </el-form>
-    <div style="border: 1px solid #ccc">
+    <div style="border: 1px solid #ccc; z-index: 10">
       <Toolbar
         style="border-bottom: 1px solid #ccc"
         :editor="editorRef"
@@ -61,7 +61,7 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { ElMessage } from 'element-plus'
-import { apiAddArticle } from '@/api/article'
+import { apiAddArticle, apiGetAllArticleTypes } from '@/api/article'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -84,21 +84,14 @@ const initArticle = () => {
   articleContent.value.articleAbstractItem = []
   articleContent.value.articlePermission = true
 }
+
+const articleTypes = ref([])
 // 文章关键词
-const allArticleAbstracts = [
-  {
-    value: 'regularlLife',
-    label: '日常生活'
-  },
-  {
-    value: 'emotionLife',
-    label: '情感生活'
-  },
-  {
-    value: 'happy',
-    label: '开心'
-  }
-]
+const getAllArticleTypes = async () => {
+  articleTypes.value = await apiGetAllArticleTypes()
+}
+getAllArticleTypes()
+
 // 模拟 ajax 异步获取内容
 onMounted(() => {})
 
