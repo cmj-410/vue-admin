@@ -34,8 +34,15 @@ export default {
       state.tagsList.splice(ind, 1)
       setItem(TAGSLIST, state.tagsList)
     },
+    removeOthersTag(state, { reservePath }) {
+      state.tagsList = [reservePath]
+      debugger
+      setItem(TAGSLIST, state.tagsList)
+    },
     clearTagList(state) {
+      router.push('/home')
       state.tagsList = []
+      setItem(TAGSLIST, [])
     }
   }
 }
