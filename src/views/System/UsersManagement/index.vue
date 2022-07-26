@@ -299,12 +299,8 @@ const formatJson = (headers, rows) => {
 </script>
 
 <style lang="scss" scoped>
-::v-deep {
-  .el-table {
-    .cell {
-      text-align: center;
-    }
-  }
+:deep(.el-table .cell) {
+   text-align: center;
 }
 .btnGroup {
   display: flex;

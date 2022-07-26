@@ -3,13 +3,13 @@
     <el-aside
       :width="
         $store.getters.sidebarOpened
-          ? $store.getters.scssVariables.sideBarClosed
+          ? 'fix-content'
           : $store.getters.scssVariables.sideBarOpened
+
       "
-      :class="{
-        dayBgColor: $store.getters.themeColorDay,
-        darkBgColor: !$store.getters.themeColorDay
-      }"
+      :style="$store.getters.themeColorDay ?
+      { background: $store.getters.scssVariables.sideBarBgColor }:
+      { background: $store.getters.scssVariables.darkSideBarBgColor }"
     >
       <SideBar />
     </el-aside>
@@ -34,16 +34,9 @@ import Tags from '@/components/Tags'
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/variables.module.scss';
 .el-aside,
 .el-container {
   height: 100vh;
-}
-.dayBgColor {
-  background: #{$sideBarBgColor};
-}
-.darkBgColor {
-  background: #{$darkSideBarBgColor};
 }
 .el-header {
   border-bottom: 1px solid lightgray;

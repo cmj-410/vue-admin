@@ -1,8 +1,7 @@
 // 顶部header高度
 $topHeight: 50px;
-// 侧边栏宽度
+// 侧边栏宽度（打开时）
 $sideBarOpened: 200px;
-$sideBarClosed: 64px;
 // 普通侧边菜单样式
 $sideBarBgColor: lightgray;
 $menuBgColor: gray;
@@ -12,17 +11,16 @@ $menuActiveBgColor: rgba(211, 211, 211, 0.3);
 // 暗黑模式侧边菜单样式
 $darkSideBarBgColor: rgba(0, 0, 0, 0.2);
 $darkMenuBgColor: rgba(0, 0, 0, 0.4);
-$darkMenuActiveFontColor: yellow;
 $darkMenuActiveBgColor: #181818;
 
 :export{
   topHeight: $topHeight;
   sideBarOpened: $sideBarOpened;
-  sideBarClosed: $sideBarClosed;
+  sideBarBgColor: $sideBarBgColor;
   menuBgColor: $menuBgColor;
   menuActiveFontColor: $menuActiveFontColor;
   menuActiveBgColor: $menuActiveBgColor;
+  darkSideBarBgColor: $darkSideBarBgColor;
   darkMenuBgColor: $darkMenuBgColor;
-  darkMenuActiveFontColor: $darkMenuActiveFontColor;
   darkMenuActiveBgColor: $darkMenuActiveBgColor;
 }

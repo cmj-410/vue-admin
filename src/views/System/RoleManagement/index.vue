@@ -88,11 +88,7 @@ const deleteRole = async (roleId) => {
   height: 42px;
   margin-bottom: 10px;
 }
-::v-deep {
-  .el-table {
-    .cell {
-      text-align: center;
-    }
-  }
+:deep(.el-table .cell) {
+   text-align: center;
 }
 </style>

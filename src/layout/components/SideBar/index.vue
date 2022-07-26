@@ -13,11 +13,7 @@
         : $store.getters.scssVariables.darkMenuBgColor
     "
     text-color="white"
-    :active-text-color="
-      $store.getters.themeColorDay
-        ? $store.getters.scssVariables.menuActiveFontColor
-        : $store.getters.scssVariables.darkMenuActiveFontColor
-    "
+    :active-text-color="$store.getters.scssVariables.menuActiveFontColor"
     :collapse="$store.getters.sidebarOpened"
     :collapse-transition="false"
   >

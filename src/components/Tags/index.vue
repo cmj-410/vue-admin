@@ -53,17 +53,15 @@ const removeTab = (targetPathName) => {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .el-tabs__header {
-  margin-bottom: 0;
-}
-::v-deep .el-tabs__item {
-  &:hover {
-    color: skyblue;
+@import '~@/styles/variables.module.scss';
+
+:deep(.el-tabs__item){
+  &:hover{
+    color: black;
   }
   &.is-active {
-    background-color: gray !important;
-    border-bottom-color: black;
-    color: skyblue;
+    background-color: #{$menuBgColor} !important;
+    color: $menuActiveFontColor;
   }
 }
 </style>

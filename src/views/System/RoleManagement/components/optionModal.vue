@@ -168,7 +168,7 @@ const close = () => {
   font: 25px;
   text-align: center;
 }
-::v-deep .el-dialog__body {
+:deep(.el-dialog__body){
   padding-top: 0;
   padding-bottom: 0;
 }

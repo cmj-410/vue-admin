@@ -139,14 +139,14 @@ const submitArticle = async () => {
   justify-content: space-between;
 }
 .title {
-  ::v-deep .el-form-item__label {
+  :deep(.el-form-item__label){
     height: 40px;
     line-height: 40px;
     font-size: 20px !important;
     padding-right: 20px;
   }
 
-  ::v-deep .el-input__wrapper {
+  :deep(.el-input__wrapper){
     width: 350px;
     .el-input__inner {
       height: 40px;
@@ -156,11 +156,11 @@ const submitArticle = async () => {
   }
 }
 .abstractItems {
-  ::v-deep .el-form-item__label {
+  :deep(.el-form-item__label){
     height: 42px;
     line-height: 42px;
   }
-  ::v-deep .el-select {
+  :deep(.el-select){
     width: 250px !important;
   }
 }
