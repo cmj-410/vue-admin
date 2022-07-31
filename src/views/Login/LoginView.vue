@@ -1,49 +1,29 @@
 <template>
   <div class="login-container">
     <div class="centerPanel">
-      <h2>vue-admin 后台系统</h2>
-      <el-form
-        label-position="top"
-        label-width="100px"
-        :model="loginForm"
-        class="login-form"
-        :rules="formRules"
-        ref="loginFromRef"
-      >
+      <h2>mj-vue-admin 后台系统</h2>
+      <el-form label-position="top" label-width="100px" :model="loginForm" class="login-form" :rules="formRules"
+        ref="loginFromRef">
         <el-form-item label="用户名" prop="userName">
-          <el-input
-            v-model="loginForm.userName"
-            maxlength="20"
-            size="large"
-            clearable
-            @keyup.enter="clickLogin"
-          >
+          <el-input v-model="loginForm.userName" maxlength="20" size="large" clearable @keyup.enter="clickLogin">
             <template #prefix>
-              <el-icon><User /></el-icon>
+              <el-icon>
+                <User />
+              </el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input
-            v-model="loginForm.password"
-            maxlength="20"
-            size="large"
-            show-password
-            @keyup.enter="clickLogin"
-          >
+          <el-input v-model="loginForm.password" maxlength="20" size="large" show-password @keyup.enter="clickLogin">
             <template #prefix>
-              <el-icon><Lock /></el-icon>
+              <el-icon>
+                <Lock />
+              </el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="primary"
-            size="large"
-            style="width: 100%"
-            @click="clickLogin"
-            :loading="isLoading"
-          >
+          <el-button type="primary" size="large" style="width: 100%" @click="clickLogin" :loading="isLoading">
             登录
           </el-button>
         </el-form-item>
@@ -93,19 +73,23 @@ const clickLogin = () => {
   background: lightslategray;
   position: relative;
   overflow: hidden;
+
   .centerPanel {
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+
     h2 {
       text-align: center;
       margin-bottom: 5vh;
     }
+
     .login-form {
       width: 400px;
       background: white;
       padding: 30px;
+
       // 去除浏览器自动填入密码后的样式
       input:-webkit-autofill {
         box-shadow: 0 0 0px 1000px white inset;

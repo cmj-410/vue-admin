@@ -4,12 +4,14 @@ import UsersManagementRouts from './modules/UsersManagement'
 import RoleManagementRoutes from './modules/RoleManagement'
 import PermissionManagementRoutes from './modules/PermissionManagement'
 import CreateArticleRoutes from './modules/CreateArticle'
+import AnalysisGraphRoutes from './modules/AnalysisGraph'
 import store from '@/store'
 
 /**
  * 私有路由表
  */
 export const privateRoutes = [
+  AnalysisGraphRoutes,
   UsersManagementRouts,
   RoleManagementRoutes,
   PermissionManagementRoutes,

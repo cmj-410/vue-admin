@@ -4,44 +4,24 @@
       <template #queryHeader>
         <el-form :inline="true" :model="queryFormParams">
           <el-form-item label="用户id：">
-            <el-input
-              v-model="queryFormParams.userId"
-              placeholder="输入用户id"
-              maxlength="10"
-              clearable
-            />
+            <el-input v-model="queryFormParams.userId" placeholder="输入用户id" maxlength="10" clearable />
           </el-form-item>
           <el-form-item label="用户名：">
-            <el-input
-              v-model="queryFormParams.userName"
-              placeholder="输入用户名"
-              maxlength="10"
-              clearable
-            />
+            <el-input v-model="queryFormParams.userName" placeholder="输入用户名" maxlength="10" clearable />
           </el-form-item>
           <el-form-item label="用户状态：">
-            <el-select
-              v-model="queryFormParams.state"
-              placeholder="选择状态"
-              clearable
-            >
+            <el-select v-model="queryFormParams.state" placeholder="选择状态" clearable>
               <el-option label="正常" :value="1" />
               <el-option label="停用" :value="0" />
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button
-              type="primary"
-              @click="
-                () => {
-                  queryFormParams.pageCurrent = 1
-                  onSubmit()
-                }
-              "
-              :loading="isloading"
-              v-permissions="['userList']"
-              >查询</el-button
-            >
+            <el-button type="primary" @click="
+              () => {
+                queryFormParams.pageCurrent = 1
+                onSubmit()
+              }
+            " :loading="isloading" v-permissions="['userList']">查询</el-button>
           </el-form-item>
         </el-form>
       </template>
@@ -49,28 +29,12 @@
       <template #optionBtn>
         <div class="btnGroup">
           <span>
-            <el-button
-              type="primary"
-              style="margin-bottom: 10px"
-              @click="addUserClick"
-              v-permissions="['addUser']"
-              >新增用户</el-button
-            >
+            <el-button type="primary" style="margin-bottom: 10px" @click="addUserClick" v-permissions="['addUser']">新增用户
+            </el-button>
           </span>
           <div>
-            <el-button
-              type="success"
-              @click="importUsers"
-              v-permissions="['importUser']"
-              >导入</el-button
-            >
-            <el-button
-              type="info"
-              @click="exportUsers"
-              :loading="loading"
-              v-permissions="['exportUser']"
-              >导出</el-button
-            >
+            <el-button type="success" @click="importUsers" v-permissions="['importUser']">导入</el-button>
+            <el-button type="info" @click="exportUsers" :loading="loading" v-permissions="['exportUser']">导出</el-button>
           </div>
         </div>
       </template>
@@ -80,17 +44,11 @@
           <el-table-column prop="userId" label="用户ID" min-width="60" />
           <el-table-column prop="userName" label="用户名" min-width="60">
             <template #default="scope">
-              <el-button
-                link
-                type="primary"
-                @click="gotoUserDetail(scope.row.userId)"
-                v-if="
-                  $store.getters.getCurrentUserInfo.permission.points.includes(
-                    'userDetail'
-                  )
-                "
-                >{{ scope.row.userName }}</el-button
-              >
+              <el-button link type="primary" @click="gotoUserDetail(scope.row.userId)" v-if="
+                $store.getters.getCurrentUserInfo.permission.points.includes(
+                  'userDetail'
+                )
+              ">{{ scope.row.userName }}</el-button>
               <span v-else>{{ scope.row.userName }}</span>
             </template>
           </el-table-column>
@@ -98,13 +56,9 @@
           <el-table-column prop="role" label="角色列表" min-width="60">
             <template #default="scope">
               <template v-for="item in scope.row.role" :key="item">
-                <el-tag
-                  size="small"
-                  :type="roleCode2name[item].tagType ?? 'info'"
-                  >{{
+                <el-tag size="small" :type="roleCode2name[item].tagType ?? 'info'">{{
                     roleCode2name[item].label ?? item + '(前端设置角色信息)'
-                  }}</el-tag
-                >
+                }}</el-tag>
               </template>
             </template>
           </el-table-column>
@@ -113,36 +67,26 @@
               {{ scope.row.state === 1 ? '正常' : '停用' }}
             </template>
           </el-table-column>
-          <el-table-column
-            prop="lastLoginTime"
-            label="上次登录时间"
-            min-width="80"
-            sortable
-          >
+          <el-table-column prop="lastLoginTime" label="上次登录时间" min-width="80" sortable>
             <template #default="scope">
               {{ scope.row.lastLoginTime.split('T')[0] }}
             </template>
           </el-table-column>
           <el-table-column label="操作">
             <template #default="scope">
-              <el-button
-                link
-                type="primary"
-                @click.prevent="editUser(scope.row)"
-                v-permissions="['editUser']"
-              >
-                <el-icon><Edit /></el-icon>
+              <el-button link type="primary" @click.prevent="editUser(scope.row)" v-permissions="['editUser']">
+                <el-icon>
+                  <Edit />
+                </el-icon>
                 <span style="margin-left: 3px">编辑</span>
               </el-button>
-              <el-popconfirm
-                confirm-button-text="确定"
-                cancel-button-text="取消"
-                title="确认删除该用户么?"
-                @confirm="deleteUser(scope.row)"
-              >
+              <el-popconfirm confirm-button-text="确定" cancel-button-text="取消" title="确认删除该用户么?"
+                @confirm="deleteUser(scope.row)">
                 <template #reference>
                   <el-button link type="primary" v-permissions="['deleteUser']">
-                    <el-icon><Delete /></el-icon>
+                    <el-icon>
+                      <Delete />
+                    </el-icon>
                     <span style="margin-left: 3px">删除</span>
                   </el-button>
                 </template>
@@ -154,24 +98,13 @@
 
       <template #footerPart>
         <el-config-provider :locale="zhCn">
-          <el-pagination
-            @size-change="pageSizeChange"
-            @current-change="pageChange"
-            :current-page="queryFormParams.pageCurrent"
-            :page-size="queryFormParams.pageSize"
-            :page-sizes="[5, 10, 20]"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="totalRows"
-          ></el-pagination>
+          <el-pagination @size-change="pageSizeChange" @current-change="pageChange"
+            :current-page="queryFormParams.pageCurrent" :page-size="queryFormParams.pageSize" :page-sizes="[5, 10, 20]"
+            layout="total, sizes, prev, pager, next, jumper" :total="totalRows"></el-pagination>
         </el-config-provider>
       </template>
     </BaseTabelLayout>
-    <OptionModal
-      v-model="isVisible"
-      :userId="EditUserId"
-      :isEdit="isEdit"
-      @success="getTableData"
-    ></OptionModal>
+    <OptionModal v-model="isVisible" :userId="EditUserId" :isEdit="isEdit" @success="getTableData"></OptionModal>
   </div>
 </template>
 
@@ -300,8 +233,9 @@ const formatJson = (headers, rows) => {
 
 <style lang="scss" scoped>
 :deep(.el-table .cell) {
-   text-align: center;
+  text-align: center;
 }
+
 .btnGroup {
   display: flex;
   justify-content: space-between;

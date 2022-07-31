@@ -1,29 +1,19 @@
 <template>
   <div class="tabsWrapper">
-    <el-tabs
-      v-model="$route.path"
-      type="border-card"
-      closable
-      @tab-remove="removeTab"
-      @tab-click="goto"
-    >
-      <el-tab-pane
-        v-for="item in currentTagsList"
-        :key="item.fullPath"
-        :name="item.fullPath"
-      >
-      <template #label>
-        <span @contextmenu.prevent="Clickcontextmenu($event, item.fullPath)">
-        {{item.meta.title}}
-        </span>
-      </template>
+    <el-tabs v-model="$route.path" type="border-card" closable @tab-remove="removeTab" @tab-click="goto">
+      <el-tab-pane v-for="item in currentTagsList" :key="item.fullPath" :name="item.fullPath">
+        <template #label>
+          <span @contextmenu.prevent="Clickcontextmenu($event, item.fullPath)">
+            {{ item.meta.title }}
+          </span>
+        </template>
       </el-tab-pane>
     </el-tabs>
     <div class="selectTip" v-show="showSelect">
       <ul>
-        <li @click="removeTabOther(1)"><small>关闭当前tab</small></li>
-        <li @click="removeTabOther(2)"><small>关闭所有除当前</small></li>
-        <li @click="removeTabOther(3)"><small>关闭所有tab</small></li>
+        <li @click="removeTabOther(1)"><small>关闭当前</small></li>
+        <li @click="removeTabOther(2)"><small>关闭其他</small></li>
+        <li @click="removeTabOther(3)"><small>关闭所有</small></li>
       </ul>
     </div>
   </div>
@@ -57,8 +47,8 @@ const removeTab = (targetPathName) => {
   if (route.path === targetPathName) {
     router.push(
       currentTagsList.value[index + 1]?.fullPath ??
-        currentTagsList.value[index - 1]?.fullPath ??
-        '/home'
+      currentTagsList.value[index - 1]?.fullPath ??
+      '/home'
     )
   }
   store.commit('app/removeTag', { ind: index })
@@ -106,44 +96,52 @@ watch(() => showSelect.value, (newVal) => {
 <style lang="scss" scoped>
 @import '~@/styles/variables.module.scss';
 
-.tabsWrapper{
+.tabsWrapper {
   position: relative;
 
-  .selectTip{
-  position: fixed;
-  z-index: 10;
-  ul,li{
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
-    background: lightgray;
-  }
-  ul{
-    border: solid 1px black;
-  }
-  li{
-    padding: 0 8px 0 8px;
-    line-height: 26px;
-    &:hover{
-      background: #{$menuBgColor};
-      color: $menuActiveFontColor;
+  .selectTip {
+    position: fixed;
+    z-index: 10;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+    ul,
+    li {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+      background: lightgray;
+    }
+
+    ul {
+      border: solid 1px gray;
+    }
+
+    li {
+      padding: 0 10px 0 10px;
+      line-height: 30px;
+
+      &:hover {
+        background: #{$menuBgColor};
+        color: $menuActiveFontColor;
+      }
     }
   }
 }
-}
 
-:deep(.el-tabs--border-card>.el-tabs__header .el-tabs__item){
+:deep(.el-tabs--border-card>.el-tabs__header .el-tabs__item) {
   border-right: 1px solid rgb(211, 211, 211);
-  &:hover{
+
+  &:hover {
     color: rgb(144, 147, 153) !important;
   }
-  &.is-active{
+
+  &.is-active {
     background-color: #{$menuBgColor} !important;
-    color: $menuActiveFontColor !important;
+    color: $menuActiveFontColor  !important;
   }
 }
-:deep(.el-tabs--border-card>.el-tabs__content){
+
+:deep(.el-tabs--border-card>.el-tabs__content) {
   padding: 0;
 }
-
 </style>

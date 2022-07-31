@@ -1,22 +1,14 @@
 <template>
   <div class="title">
-    <template v-if="!$store.getters.sidebarOpened">vue-admin 后台系统</template>
+    <template v-if="!$store.getters.sidebarOpened">mj-vue-admin 后台系统</template>
     <template v-else>LOGO</template>
   </div>
-  <el-menu
-    :default-active="curRoute"
-    :uniqueOpened="true"
-    style="border: none"
-    :background-color="
-      $store.getters.themeColorDay
-        ? $store.getters.scssVariables.menuBgColor
-        : $store.getters.scssVariables.darkMenuBgColor
-    "
-    text-color="white"
-    :active-text-color="$store.getters.scssVariables.menuActiveFontColor"
-    :collapse="$store.getters.sidebarOpened"
-    :collapse-transition="false"
-  >
+  <el-menu :default-active="curRoute" :uniqueOpened="true" style="border: none" :background-color="
+    $store.getters.themeColorDay
+      ? $store.getters.scssVariables.menuBgColor
+      : $store.getters.scssVariables.darkMenuBgColor
+  " text-color="white" :active-text-color="$store.getters.scssVariables.menuActiveFontColor"
+    :collapse="$store.getters.sidebarOpened" :collapse-transition="false">
     <MySubItem v-for="item in routes" :item="item" :key="item.path" />
   </el-menu>
 </template>
@@ -42,6 +34,7 @@ const curRoute = computed(() => route.path)
 
 <style lang="scss" scoped>
 @import '~@/styles/variables.module.scss';
+
 .title {
   height: #{$topHeight};
   line-height: #{$topHeight};

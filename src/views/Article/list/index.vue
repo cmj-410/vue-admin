@@ -131,12 +131,22 @@ const pageChange = (value) => {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/styles/variables.module.scss';
+
 .wrapper {
   position: relative;
   .fixedBtn {
     z-index: 1;
     position: fixed;
     right: 20px;
+  }
+}
+:deep(.el-tabs__item){
+  &:hover{
+    color: rgb(48, 49, 51);
+  }
+  &.is-active{
+    color: $menuActiveFontColor;
   }
 }
 </style>
