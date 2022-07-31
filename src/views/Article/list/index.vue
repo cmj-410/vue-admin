@@ -1,62 +1,41 @@
 <template>
   <div class="wrapper">
-    <span class="fixedBtn"
-      ><el-button type="primary" @click="openPanel">配置阅览</el-button>
+    <span class="fixedBtn">
+      <el-button type="primary" @click="openPanel">配置阅览</el-button>
     </span>
     <el-tabs v-model="activeTopic">
-      <el-tab-pane
-        v-for="item in articleTypes"
-        :key="item.name"
-        :name="item.name"
-      >
+      <el-tab-pane v-for="item in articleTypes" :key="item.name" :name="item.name">
         <template #label>
           {{ item.label }}
         </template>
         <el-scrollbar height="500px">
-          <articleCollapse
-            :ref="item.name"
-            :thisType="item.name"
-            :activeTopic="activeTopic"
-            :option="articleOption"
-            :tragger="tragger"
-            @successGetList="returnTotal"
-          />
+          <articleCollapse :ref="item.name" :thisType="item.name" :activeTopic="activeTopic" :option="articleOption"
+            :tragger="tragger" @successGetList="returnTotal" />
         </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
-    <el-drawer
-      v-model="drawerState"
-      title="配置浏览选项"
-      direction="rtl"
-      :before-close="handleClose"
-    >
+    <el-drawer v-model="drawerState" title="配置浏览选项" direction="rtl" :before-close="handleClose">
       <el-form :model="articleOption" label-position="top">
-        <el-form-item prop="userName" label="筛选作者">
-          <el-input
-            placeholder="输入作者名称"
-            v-model="articleOption.userName"
-            clearable
-          />
+        <el-form-item prop="userName" label="作者">
+          <el-input placeholder="输入作者名称" v-model="articleOption.userName" clearable />
         </el-form-item>
-        <el-form-item prop="updateTime" label="筛选某时间之后的文章">
-          <el-date-picker
-            v-model="articleOption.updateTime"
-            type="date"
-            placeholder="选择起始日期"
-          />
+        <el-form-item prop="articleId" label="文章Id">
+          <el-input placeholder="输入文章Id" v-model="articleOption.articleId" clearable />
+        </el-form-item>
+        <el-form-item prop="updateTimeAfter" label="筛选某时间之后的文章">
+          <el-date-picker v-model="articleOption.updateTimeAfter" type="datetime" value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="选择起始日期" />
+        </el-form-item>
+        <el-form-item prop="updateTimeBefore" label="筛选某时间之前的文章">
+          <el-date-picker v-model="articleOption.updateTimeBefore" type="datetime" value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="选择截至日期" />
         </el-form-item>
       </el-form>
       <div style="margin-top: 60px">
         <el-config-provider :locale="zhCn">
-          <el-pagination
-            @size-change="pageSizeChange"
-            @current-change="pageChange"
-            :current-page="articleOption.pageCurrent"
-            :page-size="articleOption.pageSize"
-            :page-sizes="[5, 10, 20]"
-            layout="sizes, prev, pager, next, jumper"
-            :total="totalRows"
-          ></el-pagination>
+          <el-pagination @size-change="pageSizeChange" @current-change="pageChange"
+            :current-page="articleOption.pageCurrent" :page-size="articleOption.pageSize" :page-sizes="[5, 10, 20]"
+            layout="sizes, prev, pager, next, jumper" :total="totalRows"></el-pagination>
         </el-config-provider>
       </div>
       <template #footer>
@@ -82,7 +61,9 @@ const articleOption = ref({
   pageCurrent: 1,
   pageSize: 5,
   userName: '',
-  updateTime: null
+  articleId: null,
+  updateTimeAfter: null,
+  updateTimeBefore: null
 })
 const totalRows = ref(0)
 const drawerState = ref(false)
@@ -112,12 +93,13 @@ const clearOption = () => {
   articleOption.value.pageCurrent = 1
   articleOption.value.pageSize = 5
   articleOption.value.userName = ''
-  articleOption.value.updateTime = null
-  // 通过该属性，组件watch其，获取更新数据的指令
-  tragger.value = !tragger.value
+  articleOption.value.articleId = null
+  articleOption.value.updateTimeAfter = null
+  articleOption.value.updateTimeBefore = null
 }
 // 确认配置
 const ConfirmOption = () => {
+  // 通过该属性，组件watch其，获取更新数据的指令
   tragger.value = !tragger.value
   handleClose()
 }
@@ -135,17 +117,20 @@ const pageChange = (value) => {
 
 .wrapper {
   position: relative;
+
   .fixedBtn {
     z-index: 1;
     position: fixed;
     right: 20px;
   }
 }
-:deep(.el-tabs__item){
-  &:hover{
+
+:deep(.el-tabs__item) {
+  &:hover {
     color: rgb(48, 49, 51);
   }
-  &.is-active{
+
+  &.is-active {
     color: $menuActiveFontColor;
   }
 }

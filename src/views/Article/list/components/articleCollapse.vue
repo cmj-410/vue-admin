@@ -1,30 +1,24 @@
 <template>
   <el-collapse accordion v-model="activeArticleId" @change="handleChange">
-    <template v-for="article in showArticleList" :key="article.articleId">
+    <template v-for="(article, index) in showArticleList" :key="article.articleId">
       <el-collapse-item :name="article.articleId">
         <template #title>
           <div class="titleWrapper">
-            <span class="title">{{ article.title }}</span>
+            <span class="title">{{ article.articleId }}. {{ article.title }}</span>
             <span class="rightPart">
               <b>作者</b>
               {{ article.userName }}
-              <b style="margin-left: 20px">更新时间</b
-              >{{ article.lastUpdateTime.split('T')[0] }}
+              <b style="margin-left: 20px">更新时间</b>{{ getUpdateTime(index) }}
             </span>
           </div>
         </template>
         <span v-html="article.content" />
         <div style="padding-left: 10px">
-          <el-button
-            link
-            @click="
-              () => {
-                activeArticleId = null
-              }
-            "
-            type="success"
-            ><b>折叠该文章</b></el-button
-          >
+          <el-button link @click="
+            () => {
+              activeArticleId = null
+            }
+          " type="success"><b>折叠该文章</b></el-button>
         </div>
       </el-collapse-item>
     </template>
@@ -50,6 +44,14 @@ const theType = computed(() => {
 const theTragger = computed(() => {
   return props.tragger
 })
+const getUpdateTime = (index) => {
+  const res = []
+  showArticleList.value.forEach(article => {
+    // server传回的字符串格式再转换为date格式，此时为当前时区时间
+    res.push((new Date(article.lastUpdateTime)).format('yyyy-MM-dd hh:mm:ss'))
+  })
+  return res[index]
+}
 
 const getArticleList = async () => {
   const res = await apiGetTypeArticles({
@@ -73,7 +75,7 @@ watch(theTopic, () => init())
 // 通过监听触发器，知道什么时候更改了配置，以获取新的列表
 watch(theTragger, () => init())
 
-const handleChange = () => {}
+const handleChange = () => { }
 </script>
 
 <style lang="scss" scoped>
@@ -81,6 +83,7 @@ const handleChange = () => {}
   display: flex;
   justify-content: space-between;
   width: 80%;
+
   .title {
     font-size: 26px !important;
   }
