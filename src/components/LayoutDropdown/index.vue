@@ -10,6 +10,7 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="gotoHome">主页</el-dropdown-item>
+          <el-dropdown-item @click="gotoProfile">个人简历</el-dropdown-item>
           <el-dropdown-item @click="logout" divided>退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -22,11 +23,16 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 const store = useStore()
 const router = useRouter()
+
 const logout = () => {
   store.dispatch('users/logout')
 }
 const gotoHome = () => {
   router.push('/home')
+}
+const gotoProfile = () => {
+  const userId = store.getters.getCurrentUserInfo.userId
+  router.push(`/users/PersonalDetail/${userId}`)
 }
 </script>
 
