@@ -3,7 +3,7 @@ import request from '@/utils/request'
 /**
  * 角色权限数组，方便在tree组件中渲染存在的权限
  */
-export const apiRolePermission = params => {
+export const apiRolePermission = (params) => {
   return request({
     url: 'roles/rolePermissionsList',
     method: 'GET',
@@ -22,9 +22,19 @@ export const apiRolesList = () => {
 }
 
 /**
+ * 获取角色code和名称的映射
+ */
+export const apiRoleMap = () => {
+  return request({
+    url: 'roles/roleMap',
+    method: 'GET'
+  })
+}
+
+/**
  * 编辑角色信息
  */
-export const apiEditRole = data => {
+export const apiEditRole = (data) => {
   return request({
     url: 'roles/operate',
     method: 'POST',
@@ -35,7 +45,7 @@ export const apiEditRole = data => {
 /**
  * 新增角色信息
  */
-export const apiAddRole = data => {
+export const apiAddRole = (data) => {
   return request({
     url: 'roles/operate',
     method: 'POST',
@@ -49,7 +59,7 @@ export const apiAddRole = data => {
 /**
  * 删除角色
  */
-export const apiDeleteRole = data => {
+export const apiDeleteRole = (data) => {
   return request({
     url: 'roles/delete',
     method: 'POST',

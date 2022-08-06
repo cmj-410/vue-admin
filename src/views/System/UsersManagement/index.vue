@@ -56,15 +56,18 @@
           <el-table-column prop="role" label="角色列表" min-width="60">
             <template #default="scope">
               <template v-for="item in scope.row.role" :key="item">
-                <el-tag size="small" :type="roleCode2name[item].tagType ?? 'info'">{{
-                    roleCode2name[item].label ?? item + '(前端设置角色信息)'
-                }}</el-tag>
+                <b>{{ roleCode2name[item] }}</b>
               </template>
             </template>
           </el-table-column>
           <el-table-column prop="state" label="状态" min-width="60">
             <template #default="scope">
-              {{ scope.row.state === 1 ? '正常' : '停用' }}
+              <el-tag v-if="scope.row.state === 1" type="success">
+                正常
+              </el-tag>
+              <el-tag v-else type="warning">
+                停用
+              </el-tag>
             </template>
           </el-table-column>
           <el-table-column prop="lastLoginTime" label="上次登录时间" min-width="80" sortable>
@@ -104,7 +107,11 @@
         </el-config-provider>
       </template>
     </BaseTabelLayout>
-    <OptionModal v-model="isVisible" :userId="EditUserId" :isEdit="isEdit" @success="getTableData"></OptionModal>
+    <OptionModal v-model="isVisible"
+      :userId="EditUserId"
+      :isEdit="isEdit"
+      @success="getTableData"
+      :roleList="roleList"></OptionModal>
   </div>
 </template>
 
@@ -115,7 +122,7 @@ import BaseTabelLayout from '@/components/BaseTabelLayout'
 import OptionModal from './components/optionModal.vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import noFrequentlyClick from '@/utils/noFrequentlyClick'
-import { roleCode2name } from './utils/roleCode2name'
+import { apiRoleMap } from '@/api/roles.js'
 import { useRouter } from 'vue-router'
 import { USER_RELATIONS, USER_RELATIONS_RE } from './importUsers/transKey'
 import { useStore } from 'vuex'
@@ -134,6 +141,22 @@ const totalRows = ref(0)
 const isVisible = ref(false)
 const EditUserId = ref()
 const isEdit = ref(false)
+
+const roleCode2name = ref()
+const roleList = ref()
+const getRoleMap = async () => {
+  roleCode2name.value = await apiRoleMap()
+  const temp = []
+  Object.keys(roleCode2name.value).forEach(key => {
+    temp.push({
+      value: key,
+      label: roleCode2name.value[key]
+    })
+  })
+  roleList.value = temp
+}
+// 获取角色code和名称的映射
+getRoleMap()
 
 // 查询用户信息列表
 const getTableData = async () => {

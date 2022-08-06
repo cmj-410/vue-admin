@@ -59,8 +59,8 @@
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue'
 import { apiUsersProfile, apiEditUser, apiAddUser } from '@/api/users'
+import { apiRoleMap } from '@/api/roles.js'
 import formRules from './rules'
-import { getRoleList } from '../utils/roleCode2name'
 
 const props = defineProps({
   modelValue: {
@@ -72,6 +72,9 @@ const props = defineProps({
   },
   userId: {
     type: Number
+  },
+  roleList: {
+    type: Array
   }
 })
 const emits = defineEmits(['update:modelValue', 'success'])
@@ -79,7 +82,7 @@ const emits = defineEmits(['update:modelValue', 'success'])
 const modalTitle = ref()
 const editForm = ref({})
 const editFormRef = ref(null)
-const roleList = getRoleList()
+
 const initDialog = async () => {
   // 开始不要显示验证提示
   editFormRef.value?.resetFields()
